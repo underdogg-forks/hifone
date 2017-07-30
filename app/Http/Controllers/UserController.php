@@ -201,18 +201,18 @@ class UserController extends Controller
 
             if (!($password == $password_confirmation)) {
                 return Redirect::back()
-                    ->withInfo('当前输入新密码与错密码不一致, 请重新输入.');
+                    ->withInfo('Password is not same as password confirmation');
             } else {
                 $user->password = Hash::make(Input::only('password')['password']);
 
                 $user->save();
 
                 return Redirect::back()
-                    ->withSuccess('密码修改成功!');
+                    ->withSuccess('Password changed successfully!');
             }
         } else {
             return Redirect::back()
-                ->withError('输入当前密码输入错误, 请重新输入.');
+                ->withError('Password incorrect');
         }
     }
 }
