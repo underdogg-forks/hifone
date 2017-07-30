@@ -36,8 +36,8 @@ class Location extends Model
      * @var string[]
      */
     public $rules = [
-        'name'   => 'string|required',
-        'order'  => 'int',
+        'name' => 'string|required',
+        'order' => 'int',
     ];
 
     public function users()

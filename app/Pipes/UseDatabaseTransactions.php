@@ -19,7 +19,7 @@ class UseDatabaseTransactions
     /**
      * Handle the current command in the pipeline.
      *
-     * @param mixed    $command
+     * @param mixed $command
      * @param \Closure $next
      *
      * @return bool

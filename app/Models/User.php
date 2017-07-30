@@ -54,7 +54,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public $rules = [
         'username' => ['required', 'max:15', 'regex:/\A[A-Za-z0-9\-\_\.]+\z/'],
-        'email'    => 'required|max:255',
+        'email' => 'required|max:255',
         'password' => 'required',
     ];
 
@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Find by username, or throw an exception.
      *
      * @param string $username The username.
-     * @param mixed  $columns  The columns to return.
+     * @param mixed $columns The columns to return.
      *
      * @throws ModelNotFoundException if no matching User exists.
      *
@@ -75,7 +75,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public static function findByUsernameOrFail(
         $username,
         $columns = ['*']
-    ) {
+    )
+    {
         if (!is_null($user = static::whereUsername($username)->first($columns))) {
             return $user;
         }
@@ -130,7 +131,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function scopeSearch($query, $search)
     {
-        return  $query->where(function ($query) use ($search) {
+        return $query->where(function ($query) use ($search) {
             $query->where('username', 'LIKE', "%$search%");
         });
     }
@@ -198,8 +199,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $content_type = explode('/', $response->getHeader('Content-Type'));
         $ext = array_pop($content_type);
 
-        $avatar_name = $this->id.'_'.time().'.'.$ext;
-        $save_path = public_path('uploads/avatars/').$avatar_name;
+        $avatar_name = $this->id . '_' . time() . '.' . $ext;
+        $save_path = public_path('uploads/avatars/') . $avatar_name;
 
         //Save File
         $content = $response->getBody()->getContents();
@@ -207,7 +208,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         //Delete old file
         if ($this->avatar) {
-            @unlink(public_path('uploads/avatars/').$this->avatar);
+            @unlink(public_path('uploads/avatars/') . $this->avatar);
         }
 
         //Save to database

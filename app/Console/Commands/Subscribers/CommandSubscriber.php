@@ -11,7 +11,6 @@
 
 namespace Hifone\Console\Commands\Subscribers;
 
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -39,18 +38,18 @@ class CommandSubscriber
      */
     public function subscribe(Dispatcher $events)
     {
-        $events->listen('command.generatekey', __CLASS__.'@onGenerateKey', 5);
-        $events->listen('command.cacheconfig', __CLASS__.'@onCacheConfig', 5);
-        $events->listen('command.cacheroutes', __CLASS__.'@onCacheRoutes', 5);
-        $events->listen('command.publishvendors', __CLASS__.'@onPublishVendors', 5);
-        $events->listen('command.resetmigrations', __CLASS__.'@onResetMigrations', 5);
-        $events->listen('command.runmigrations', __CLASS__.'@onRunMigrations', 5);
-        $events->listen('command.runseeding', __CLASS__.'@onRunSeeding', 5);
-        $events->listen('command.updatecache', __CLASS__.'@onUpdateCache', 5);
+        $events->listen('command.generatekey', __CLASS__ . '@onGenerateKey', 5);
+        $events->listen('command.cacheconfig', __CLASS__ . '@onCacheConfig', 5);
+        $events->listen('command.cacheroutes', __CLASS__ . '@onCacheRoutes', 5);
+        $events->listen('command.publishvendors', __CLASS__ . '@onPublishVendors', 5);
+        $events->listen('command.resetmigrations', __CLASS__ . '@onResetMigrations', 5);
+        $events->listen('command.runmigrations', __CLASS__ . '@onRunMigrations', 5);
+        $events->listen('command.runseeding', __CLASS__ . '@onRunSeeding', 5);
+        $events->listen('command.updatecache', __CLASS__ . '@onUpdateCache', 5);
 
-        $events->listen('command.installing', __CLASS__.'@onRunBackup', 5);
-        $events->listen('command.updating', __CLASS__.'@onRunBackup', 5);
-        $events->listen('command.resetting', __CLASS__.'@onRunBackup', 5);
+        $events->listen('command.installing', __CLASS__ . '@onRunBackup', 5);
+        $events->listen('command.updating', __CLASS__ . '@onRunBackup', 5);
+        $events->listen('command.resetting', __CLASS__ . '@onRunBackup', 5);
     }
 
     /**
@@ -62,7 +61,7 @@ class CommandSubscriber
      */
     public function onRunBackup(Command $command)
     {
-        $command->line('Clearing settings cache...');
+        /*$command->line('Clearing settings cache...');
         $command->line('Settings cache cleared!');
         $command->line('Backing up database...');
         try {
@@ -76,7 +75,7 @@ class CommandSubscriber
         } catch (Exception $e) {
             $command->error($e->getMessage());
             $command->line('Backup skipped!');
-        }
+        }*/
         $command->line('Backup completed!');
     }
 

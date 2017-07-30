@@ -133,7 +133,7 @@ abstract class AbstractApiController extends Controller
      * Respond with a pagination response.
      *
      * @param \Illuminate\Pagination\Paginator $paginator
-     * @param \Illuminate\Http\Request         $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -147,13 +147,13 @@ abstract class AbstractApiController extends Controller
 
         $pagination = [
             'pagination' => [
-                'total'        => (int) $paginator->total(),
-                'count'        => count($paginator->items()),
-                'per_page'     => (int) $paginator->perPage(),
-                'current_page' => (int) $paginator->currentPage(),
-                'total_pages'  => (int) $paginator->lastPage(),
-                'links'        => [
-                    'next_page'     => $paginator->nextPageUrl(),
+                'total' => (int)$paginator->total(),
+                'count' => count($paginator->items()),
+                'per_page' => (int)$paginator->perPage(),
+                'current_page' => (int)$paginator->currentPage(),
+                'total_pages' => (int)$paginator->lastPage(),
+                'links' => [
+                    'next_page' => $paginator->nextPageUrl(),
                     'previous_page' => $paginator->previousPageUrl(),
                 ],
             ],

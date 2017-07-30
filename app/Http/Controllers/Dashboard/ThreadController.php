@@ -14,7 +14,6 @@ namespace Hifone\Http\Controllers\Dashboard;
 use Hifone\Commands\Thread\RemoveThreadCommand;
 use Hifone\Commands\Thread\UpdateThreadCommand;
 use Hifone\Http\Controllers\Controller;
-use Hifone\Models\Node;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
 use Hifone\Parsers\Markdown;
@@ -33,7 +32,7 @@ class ThreadController extends Controller
     {
         View::share([
             'current_menu' => 'threads',
-            'sub_title'    => trans_choice('dashboard.threads.threads', 2),
+            'sub_title' => trans_choice('dashboard.threads.threads', 2),
         ]);
     }
 
@@ -42,7 +41,7 @@ class ThreadController extends Controller
         $threads = Thread::orderBy('order', 'desc')->orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.threads.index')
-            ->withPageTitle(trans('dashboard.threads.threads').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.threads.threads') . ' - ' . trans('dashboard.dashboard'))
             ->withThreads($threads);
     }
 
@@ -58,7 +57,7 @@ class ThreadController extends Controller
         $sections = Section::orderBy('order')->get();
 
         return View::make('dashboard.threads.create_edit')
-            ->withPageTitle(trans('dashboard.threads.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.threads.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withNode($thread->node)
             ->withSections($sections)
             ->withThread($thread);

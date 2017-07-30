@@ -39,8 +39,8 @@ class Link extends Model
      * @var string[]
      */
     public $rules = [
-        'title'   => 'string|required',
-        'url'     => 'string|required',
-        'status'  => 'int',
+        'title' => 'string|required',
+        'url' => 'string|required',
+        'status' => 'int',
     ];
 }

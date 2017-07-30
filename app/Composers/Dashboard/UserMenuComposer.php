@@ -26,9 +26,9 @@ class UserMenuComposer
     {
         $subMenu = [
             'nodes' => [
-                'title'  => trans('dashboard.nodes.nodes'),
-                'url'    => route('dashboard.node.index'),
-                'icon'   => 'fa fa-sitemap',
+                'title' => trans('dashboard.nodes.nodes'),
+                'url' => route('dashboard.node.index'),
+                'icon' => 'fa fa-sitemap',
                 'active' => false,
             ],
         ];

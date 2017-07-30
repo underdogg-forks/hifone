@@ -26,21 +26,21 @@ class AdvertisementMenuComposer
     {
         $subMenu = [
             'advertisements' => [
-                'title'  => trans('dashboard.advertisements.advertisements'),
-                'url'    => route('dashboard.advertisement.index'),
-                'icon'   => 'fa fa-audio-description',
+                'title' => trans('dashboard.advertisements.advertisements'),
+                'url' => route('dashboard.advertisement.index'),
+                'icon' => 'fa fa-audio-description',
                 'active' => false,
             ],
             'adspaces' => [
-                'title'  => trans('dashboard.adspaces.adspaces'),
-                'url'    => route('dashboard.adspace.index'),
-                'icon'   => 'fa fa-columns',
+                'title' => trans('dashboard.adspaces.adspaces'),
+                'url' => route('dashboard.adspace.index'),
+                'icon' => 'fa fa-columns',
                 'active' => false,
             ],
             'adblocks' => [
-                'title'  => trans('dashboard.adblocks.adblocks'),
-                'url'    => route('dashboard.adblock.index'),
-                'icon'   => 'fa fa-object-group',
+                'title' => trans('dashboard.adblocks.adblocks'),
+                'url' => route('dashboard.adblock.index'),
+                'icon' => 'fa fa-object-group',
                 'active' => false,
             ],
         ];

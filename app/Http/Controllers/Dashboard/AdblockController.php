@@ -29,7 +29,7 @@ class AdblockController extends Controller
     {
         View::share([
             'current_menu' => 'adblocks',
-            'sub_title'    => trans('dashboard.advertisements.advertisements'),
+            'sub_title' => trans('dashboard.advertisements.advertisements'),
         ]);
     }
 
@@ -38,8 +38,8 @@ class AdblockController extends Controller
         $adblocks = Adblock::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.adblocks.index')
-        ->withPageTitle(trans('dashboard.adblocks.adblocks').' - '.trans('dashboard.dashboard'))
-        ->withAdblocks($adblocks);
+            ->withPageTitle(trans('dashboard.adblocks.adblocks') . ' - ' . trans('dashboard.dashboard'))
+            ->withAdblocks($adblocks);
     }
 
     public function show(Adblock $adblock)
@@ -47,8 +47,8 @@ class AdblockController extends Controller
         $adspaces = $adblock->adspaces()->orderBy('order')->paginate(10);
 
         return View::make('dashboard.adspaces.index')
-        ->withPageTitle(trans('dashboard.adspaces.adspaces').' - '.trans('dashboard.dashboard'))
-        ->withAdspaces($adspaces);
+            ->withPageTitle(trans('dashboard.adspaces.adspaces') . ' - ' . trans('dashboard.dashboard'))
+            ->withAdspaces($adspaces);
     }
 
     public function create()

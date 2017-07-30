@@ -29,68 +29,68 @@ class UserRoutes
     {
         $router->group(['middleware' => ['web', 'ready']], function (Registrar $router) {
             $router->get('/user/{user}/replies', [
-                'as'   => 'user.replies',
+                'as' => 'user.replies',
                 'uses' => 'UserController@replies',
             ]);
 
             $router->get('/user/{user}/threads', [
-                'as'   => 'user.threads',
+                'as' => 'user.threads',
                 'uses' => 'UserController@threads',
             ]);
 
             $router->get('/user/{user}/favorites', [
-                'as'   => 'user.favorites',
+                'as' => 'user.favorites',
                 'uses' => 'UserController@favorites',
             ]);
 
             $router->get('/user/{user}/credits', [
-                'as'   => 'user.credits',
+                'as' => 'user.credits',
                 'uses' => 'UserController@credits',
             ]);
 
             $router->get('/user/{user}/refresh_cache', [
-                'as'   => 'user.refresh_cache',
+                'as' => 'user.refresh_cache',
                 'uses' => 'UserController@refreshCache',
             ]);
 
             $router->post('/user/{user}/unbind', [
-                'as'   => 'user.unbind_oauth',
+                'as' => 'user.unbind_oauth',
                 'uses' => 'UserController@unbind',
             ]);
 
             $router->get('/user/{user}/access_tokens', [
-                'as'   => 'user.access_tokens',
+                'as' => 'user.access_tokens',
                 'uses' => 'UserController@accessTokens',
             ]);
 
             $router->get('/access_token/{token}/revoke', [
-                'as'   => 'user.access_tokens.revoke',
+                'as' => 'user.access_tokens.revoke',
                 'uses' => 'UserController@revokeAccessToken',
             ]);
 
             $router->get('user/regenerate_login_token', [
-                'as'   => 'user.regenerate_login_token',
+                'as' => 'user.regenerate_login_token',
                 'uses' => 'UserController@regenerateLoginToken',
             ]);
 
             //上传avatar
             $router->post('/settings/update-avatar', [
-                'as'   => 'user.avatarupdate',
+                'as' => 'user.avatarupdate',
                 'uses' => 'UserController@avatarupdate',
             ]);
             //上传修改秘密
             $router->post('/settings/resetPassword', [
-                'as'   => 'user.resetPassword',
+                'as' => 'user.resetPassword',
                 'uses' => 'UserController@resetPassword',
             ]);
 
             $router->get('/u/{username}', [
-                'as'   => 'user.home',
+                'as' => 'user.home',
                 'uses' => 'UserController@showByUsername',
             ]);
 
             $router->get('/user/city/{name}', [
-                'as'   => 'user.city',
+                'as' => 'user.city',
                 'uses' => 'UserController@city',
             ]);
 

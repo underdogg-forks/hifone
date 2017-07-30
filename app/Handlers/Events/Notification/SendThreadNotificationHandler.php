@@ -43,21 +43,21 @@ class SendThreadNotificationHandler extends AbstractNotificationHandler
     {
         // Notify followed users
         $this->batchNotify(
-                    'user_follow_thread',
-                    $fromUser,
-                    $this->removeDuplication($fromUser->follows()->get()),
-                    $thread->id,
-                    0,
-                    $thread->body);
+            'user_follow_thread',
+            $fromUser,
+            $this->removeDuplication($fromUser->follows()->get()),
+            $thread->id,
+            0,
+            $thread->body);
         // Notify mentioned users
         $this->parseAt->parse($thread->body_original);
 
         $this->batchNotify(
-                    'at',
-                    $fromUser,
-                    $this->removeDuplication($this->parseAt->users),
-                    $thread->id,
-                    0,
-                    $thread->body);
+            'at',
+            $fromUser,
+            $this->removeDuplication($this->parseAt->users),
+            $thread->id,
+            0,
+            $thread->body);
     }
 }

@@ -32,8 +32,8 @@ class UserController extends Controller
         $this->hasher = $hasher;
 
         View::share([
-            'current_menu'  => 'nodes',
-            'sub_title'     => trans_choice('dashboard.nodes.nodes', 2),
+            'current_menu' => 'nodes',
+            'sub_title' => trans_choice('dashboard.nodes.nodes', 2),
         ]);
     }
 
@@ -49,9 +49,9 @@ class UserController extends Controller
         $roles = Role::all();
 
         return View::make('dashboard.users.index')
-        ->withPageTitle(trans('dashboard.users.users').' - '.trans('dashboard.dashboard'))
-        ->withUsers($users)
-        ->withRoles($roles);
+            ->withPageTitle(trans('dashboard.users.users') . ' - ' . trans('dashboard.dashboard'))
+            ->withUsers($users)
+            ->withRoles($roles);
     }
 
     /**
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function create()
     {
         return View::make('dashboard.users.create_edit')
-            ->withPageTitle(trans('dashboard.users.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.users.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -94,7 +94,7 @@ class UserController extends Controller
         $this->subMenu['users']['active'] = true;
 
         return View::make('dashboard.users.create_edit')
-            ->withPageTitle(trans('dashboard.users.add.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.users.add.title') . ' - ' . trans('dashboard.dashboard'))
             ->withUser($user)
             ->withSubMenu($this->subMenu);
     }

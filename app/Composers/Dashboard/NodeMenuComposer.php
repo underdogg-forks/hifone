@@ -26,15 +26,15 @@ class NodeMenuComposer
     {
         $subMenu = [
             'nodes' => [
-                'title'  => trans('dashboard.nodes.nodes'),
-                'url'    => route('dashboard.node.index'),
-                'icon'   => 'fa fa-sitemap',
+                'title' => trans('dashboard.nodes.nodes'),
+                'url' => route('dashboard.node.index'),
+                'icon' => 'fa fa-sitemap',
                 'active' => false,
             ],
             'sections' => [
-                'title'  => trans('dashboard.sections.sections'),
-                'url'    => route('dashboard.section.index'),
-                'icon'   => 'fa fa-folder',
+                'title' => trans('dashboard.sections.sections'),
+                'url' => route('dashboard.section.index'),
+                'icon' => 'fa fa-folder',
                 'active' => false,
             ],
         ];

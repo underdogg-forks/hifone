@@ -21,7 +21,7 @@ class AddPhotoRecordHandler
     {
         Photo::create([
             'user_id' => Auth::user()->id,
-            'image'   => $event->file['filename'],
+            'image' => $event->file['filename'],
         ]);
     }
 }

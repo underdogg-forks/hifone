@@ -20,7 +20,7 @@ class FileWritableVerifier extends AbstractVerifier
 
     public function getName()
     {
-        return "File path: '".$this->path."'";
+        return "File path: '" . $this->path . "'";
     }
 
     /**

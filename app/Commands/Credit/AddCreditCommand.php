@@ -25,9 +25,9 @@ final class AddCreditCommand
      * @var string[]
      */
     public $rules = [
-        'user_id'   => 'int',
-        'rule_id'   => 'int',
-        'balance'   => 'int',
+        'user_id' => 'int',
+        'rule_id' => 'int',
+        'balance' => 'int',
     ];
 
     /**

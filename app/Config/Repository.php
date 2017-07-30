@@ -54,7 +54,7 @@ class Repository
     /**
      * Updates a setting value.
      *
-     * @param string      $name
+     * @param string $name
      * @param string|null $value
      *
      * @return void

@@ -46,8 +46,8 @@ class Adspace extends Model
      * @var string[]
      */
     public $rules = [
-        'name'      => 'required|string',
-        'position'  => 'required|string',
+        'name' => 'required|string',
+        'position' => 'required|string',
     ];
 
     public function adblock()

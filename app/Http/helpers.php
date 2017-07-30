@@ -14,9 +14,9 @@ if (!function_exists('back_url')) {
      * Create a new back url.
      *
      * @param string|null $route
-     * @param array       $parameters
-     * @param int         $status
-     * @param array       $headers
+     * @param array $parameters
+     * @param int $status
+     * @param array $headers
      *
      * @return string
      */
@@ -37,7 +37,7 @@ if (!function_exists('set_active')) {
      * Set active class if request is in path.
      *
      * @param string $path
-     * @param array  $classes
+     * @param array $classes
      * @param string $active
      *
      * @return string
@@ -66,18 +66,18 @@ if (!function_exists('thread_filter')) {
         $node_id = Request::segment(2);
         $node_append = '';
         if ($node_id) {
-            $link = URL::to(is_numeric($node_id) ? 'nodes' : 'go', $node_id).'?filter='.$filter;
+            $link = URL::to(is_numeric($node_id) ? 'nodes' : 'go', $node_id) . '?filter=' . $filter;
         } else {
             $query_append = '';
             $query = Input::except('filter', '_pjax');
             if ($query) {
-                $query_append = '&'.http_build_query($query);
+                $query_append = '&' . http_build_query($query);
             }
-            $link = URL::to('thread').'?filter='.$filter.$query_append.$node_append;
+            $link = URL::to('thread') . '?filter=' . $filter . $query_append . $node_append;
         }
         $selected = Input::get('filter') ? (Input::get('filter') == $filter ? ' class="selected"' : '') : '';
 
-        return 'href="'.$link.'"'.$selected;
+        return 'href="' . $link . '"' . $selected;
     }
 }
 
@@ -92,9 +92,9 @@ if (!function_exists('cdn')) {
     function cdn($filepath = '')
     {
         if (Config::get('setting.site_cdn')) {
-            return Config::get('setting.site_cdn').$filepath;
+            return Config::get('setting.site_cdn') . $filepath;
         } else {
-            return Config::get('app.url').$filepath;
+            return Config::get('app.url') . $filepath;
         }
     }
 }

@@ -23,8 +23,8 @@ final class AddAppendCommand
      * @var string[]
      */
     public $rules = [
-        'thread_id'    => 'int',
-        'content'      => 'required|string',
+        'thread_id' => 'int',
+        'content' => 'required|string',
     ];
 
     /**

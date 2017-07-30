@@ -52,9 +52,9 @@ class Node extends Model implements HasPresenter
      * @var string[]
      */
     public $rules = [
-        'name'      => 'required|string',
-        'order'     => 'int',
-        'status'    => 'int',
+        'name' => 'required|string',
+        'order' => 'int',
+        'status' => 'int',
     ];
 
     public function section()

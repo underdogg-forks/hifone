@@ -34,8 +34,8 @@ class Adblock extends Model
      * @var string[]
      */
     public $rules = [
-        'name'      => 'required|string',
-        'slug'      => 'required|string',
+        'name' => 'required|string',
+        'slug' => 'required|string',
     ];
 
     //

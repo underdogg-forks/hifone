@@ -29,8 +29,8 @@ class NodeController extends Controller
     public function __construct()
     {
         View::share([
-            'current_menu'  => 'nodes',
-            'sub_title'     => trans_choice('dashboard.nodes.nodes', 2),
+            'current_menu' => 'nodes',
+            'sub_title' => trans_choice('dashboard.nodes.nodes', 2),
         ]);
     }
 
@@ -44,8 +44,8 @@ class NodeController extends Controller
         $nodes = Node::orderBy('order')->get();
 
         return View::make('dashboard.nodes.index')
-        ->withPageTitle(trans('dashboard.nodes.nodes').' - '.trans('dashboard.dashboard'))
-        ->withNodes($nodes);
+            ->withPageTitle(trans('dashboard.nodes.nodes') . ' - ' . trans('dashboard.dashboard'))
+            ->withNodes($nodes);
     }
 
     /**
@@ -57,7 +57,7 @@ class NodeController extends Controller
     {
         return View::make('dashboard.nodes.create_edit')
             ->withSections(Section::orderBy('order')->get())
-            ->withPageTitle(trans('dashboard.nodes.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.nodes.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -92,7 +92,7 @@ class NodeController extends Controller
     public function edit(Node $node)
     {
         return View::make('dashboard.nodes.create_edit')
-            ->withPageTitle(trans('dashboard.nodes.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.nodes.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withSections(Section::orderBy('order')->get())
             ->withNode($node);
     }

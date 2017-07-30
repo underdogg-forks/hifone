@@ -115,7 +115,7 @@ class SeedCommand extends Command
                 'value' => 'https://demo.hifone.com',
             ], [
                 'name'  => 'site_locale',
-                'value' => 'zh-CN',
+                'value' => 'en',
             ], [
                 'name'  => 'site_timezone',
                 'value' => 'UTC',

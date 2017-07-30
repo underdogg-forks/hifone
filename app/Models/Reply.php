@@ -39,8 +39,8 @@ class Reply extends Model implements HasPresenter
      */
     public $rules = [
         'thread_id' => 'required|int',
-        'body'      => 'required|max:1024',
-        'user_id'   => 'int',
+        'body' => 'required|max:1024',
+        'user_id' => 'int',
     ];
 
     public function likes()

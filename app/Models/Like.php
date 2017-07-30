@@ -45,10 +45,10 @@ class Like extends Model
      * @var string[]
      */
     public $rules = [
-        'user_id'        => 'required|int',
-        'likeable_id'    => 'required|int',
-        'likeable_type'  => 'required|string',
-        'rating'         => 'required|int',
+        'user_id' => 'required|int',
+        'likeable_id' => 'required|int',
+        'likeable_type' => 'required|string',
+        'rating' => 'required|int',
     ];
 
     public function likeable()

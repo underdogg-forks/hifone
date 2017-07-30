@@ -32,7 +32,7 @@ class Append extends Model
      */
     public $rules = [
         'thread_id' => 'required|int',
-        'content'   => 'required|string',
+        'content' => 'required|string',
     ];
 
     public function thread()

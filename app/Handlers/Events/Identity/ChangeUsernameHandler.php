@@ -13,7 +13,6 @@ namespace Hifone\Handlers\Events\Identity;
 
 use Hifone\Events\EventInterface;
 use Hifone\Events\User\UserWasAddedEvent;
-use Hifone\Models\Identity;
 use Hifone\Models\User;
 use Illuminate\Support\Str;
 
@@ -27,19 +26,19 @@ class ChangeUsernameHandler
         }
     }
 
-    //处理改用户名操作。
+    //Processing change username operation
     protected function changeUsername($user)
     {
         //$identitity = Identity::where('user_id', $user->id)->first();
-        \Log::info('start changed username : '.$user->id);
+        \Log::info('start changed username : ' . $user->id);
         $identitity = $user->identities()->first();
-        if ($identitity && $identitity->nickname && Str::endsWith($user->username, '_'.$identitity->provider_id)) {
+        if ($identitity && $identitity->nickname && Str::endsWith($user->username, '_' . $identitity->provider_id)) {
             if (!User::whereUsername($identitity->nickname)->exists()) {
                 $user->username = $identitity->nickname;
                 $user->save();
-                \Log::info('changed username : '.$user->id);
+                \Log::info('changed username : ' . $user->id);
             }
         }
-        \Log::info('end changed username : '.$user->id);
+        \Log::info('end changed username : ' . $user->id);
     }
 }

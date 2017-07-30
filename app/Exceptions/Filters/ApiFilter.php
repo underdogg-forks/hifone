@@ -37,9 +37,9 @@ class ApiFilter
      * Filter and return the displayers.
      *
      * @param \GrahamCampbell\Exceptions\Displayers\DisplayerInterface[] $displayers
-     * @param \Exception                                                 $original
-     * @param \Exception                                                 $transformed
-     * @param int                                                        $code
+     * @param \Exception $original
+     * @param \Exception $transformed
+     * @param int $code
      *
      * @return \GrahamCampbell\Exceptions\Displayers\DisplayerInterface[]
      */

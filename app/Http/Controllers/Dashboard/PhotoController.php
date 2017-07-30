@@ -26,7 +26,7 @@ class PhotoController extends Controller
     {
         View::share([
             'current_menu' => 'photo',
-            'sub_title'    => trans('dashboard.photos.photos'),
+            'sub_title' => trans('dashboard.photos.photos'),
         ]);
     }
 
@@ -35,7 +35,7 @@ class PhotoController extends Controller
         $photos = Photo::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.photos.index')
-            ->withPageTitle(trans('dashboard.photos.photos').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.photos.photos') . ' - ' . trans('dashboard.dashboard'))
             ->withPhotos($photos);
     }
 

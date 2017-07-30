@@ -23,9 +23,9 @@ class JsonValidationDisplayer extends JsonDisplayer implements DisplayerInterfac
      * Get the error response associated with the given exception.
      *
      * @param \Exception $exception
-     * @param string     $id
-     * @param int        $code
-     * @param string[]   $headers
+     * @param string $id
+     * @param int $code
+     * @param string[] $headers
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -43,7 +43,7 @@ class JsonValidationDisplayer extends JsonDisplayer implements DisplayerInterfac
      *
      * @param \Exception $original
      * @param \Exception $transformed
-     * @param int        $code
+     * @param int $code
      *
      * @return bool
      */

@@ -46,20 +46,20 @@ class SendAppendNotificationHandler extends AbstractNotificationHandler
         $users = $thread->replies()->with('user')->get()->lists('user');
         // Notify commented user
         $this->batchNotify(
-                    'comment_append',
-                    $fromUser,
-                    $this->removeDuplication($users),
-                    $thread->id,
-                    0,
-                    $append->content);
+            'comment_append',
+            $fromUser,
+            $this->removeDuplication($users),
+            $thread->id,
+            0,
+            $append->content);
 
         // Notify followed users
         $this->batchNotify(
-                    'follow_append',
-                    $fromUser,
-                    $this->removeDuplication($thread->follows()->get()),
-                    $thread->id,
-                    0,
-                    $append->content);
+            'follow_append',
+            $fromUser,
+            $this->removeDuplication($thread->follows()->get()),
+            $thread->id,
+            0,
+            $append->content);
     }
 }

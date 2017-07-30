@@ -17,7 +17,6 @@ use Hifone\Commands\Append\AddAppendCommand;
 use Hifone\Commands\Thread\AddThreadCommand;
 use Hifone\Commands\Thread\RemoveThreadCommand;
 use Hifone\Commands\Thread\UpdateThreadCommand;
-use Hifone\Models\Append;
 use Hifone\Models\Node;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
@@ -77,9 +76,9 @@ class ThreadController extends Controller
     public function show(Thread $thread)
     {
         $replies = $thread->replies()
-                    ->orderBy('created_at', 'asc')
-                    ->with('user')
-                    ->paginate(Config::get('setting.per_page'));
+            ->orderBy('created_at', 'asc')
+            ->with('user')
+            ->paginate(Config::get('setting.per_page'));
 
         $node = $thread->node;
         $nodeThreads = $thread->getSameNodeThreads();

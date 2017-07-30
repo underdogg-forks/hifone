@@ -30,37 +30,37 @@ class AuthRoutes
         $router->group(['as' => 'auth.', 'middleware' => ['web', 'ready'], 'prefix' => 'auth', 'namespace' => 'Auth'], function (Registrar $router) {
             $router->get('login', [
                 'middleware' => 'guest',
-                'as'         => 'login',
-                'uses'       => 'AuthController@getLogin',
+                'as' => 'login',
+                'uses' => 'AuthController@getLogin',
             ]);
 
             $router->post('login', [
                 'middleware' => ['guest'],
-                'uses'       => 'AuthController@postLogin',
+                'uses' => 'AuthController@postLogin',
             ]);
 
             $router->get('logout', [
-                'as'         => 'logout',
-                'uses'       => 'AuthController@getLogout',
+                'as' => 'logout',
+                'uses' => 'AuthController@getLogout',
                 'middleware' => 'auth',
             ]);
 
             $router->get('register', [
                 'middleware' => 'guest',
-                'as'         => 'register',
-                'uses'       => 'AuthController@getRegister',
+                'as' => 'register',
+                'uses' => 'AuthController@getRegister',
             ]);
             $router->post('register', [
                 'middleware' => ['guest'],
-                'uses'       => 'AuthController@postRegister',
+                'uses' => 'AuthController@postRegister',
             ]);
 
             $router->get('user-banned', 'AuthController@userBanned');
 
             $router->get('landing', [
                 'middleware' => 'guest',
-                'as'         => 'landing',
-                'uses'       => 'AuthController@landing',
+                'as' => 'landing',
+                'uses' => 'AuthController@landing',
             ]);
             $router->get('{provider}', 'AuthController@provider');
             $router->get('{provider}/callback', 'AuthController@callback');

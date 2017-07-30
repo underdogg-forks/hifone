@@ -32,7 +32,7 @@ class Tip extends Model implements HasPresenter
      * @var string[]
      */
     public $rules = [
-        'body'   => 'string|required',
+        'body' => 'string|required',
         'status' => 'int',
     ];
 

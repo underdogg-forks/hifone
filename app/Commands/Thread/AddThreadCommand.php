@@ -27,8 +27,8 @@ final class AddThreadCommand
      * @var string[]
      */
     public $rules = [
-        'title'   => 'required|string',
-        'body'    => 'required|string',
+        'title' => 'required|string',
+        'body' => 'required|string',
         'user_id' => 'int',
         'node_id' => 'int',
     ];

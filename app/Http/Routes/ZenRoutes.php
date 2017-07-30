@@ -30,7 +30,7 @@ class ZenRoutes
         $router->group(['middleware' => ['web', 'ready']], function (Registrar $router) {
             //Pages
             $router->get('/{slug}', [
-                'as'   => 'page',
+                'as' => 'page',
                 'uses' => 'PageController@show',
             ]);
         });

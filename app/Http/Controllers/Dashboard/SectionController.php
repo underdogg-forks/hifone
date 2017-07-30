@@ -29,8 +29,8 @@ class SectionController extends Controller
     public function __construct()
     {
         View::share([
-            'current_menu'  => 'sections',
-            'sub_title'     => trans_choice('dashboard.sections.sections', 2),
+            'current_menu' => 'sections',
+            'sub_title' => trans_choice('dashboard.sections.sections', 2),
         ]);
     }
 
@@ -44,8 +44,8 @@ class SectionController extends Controller
         $sections = Section::orderBy('order')->orderBy('created_at')->get();
 
         return View::make('dashboard.sections.index')
-        ->withPageTitle(trans('dashboard.sections.sections').' - '.trans('dashboard.dashboard'))
-        ->withSections($sections);
+            ->withPageTitle(trans('dashboard.sections.sections') . ' - ' . trans('dashboard.dashboard'))
+            ->withSections($sections);
     }
 
     public function show(Section $section)
@@ -53,8 +53,8 @@ class SectionController extends Controller
         $nodes = Node::where('section_id', $section->id)->orderBy('order')->get();
 
         return View::make('dashboard.nodes.index')
-        ->withPageTitle(trans('dashboard.nodes.nodes').' - '.trans('dashboard.dashboard'))
-        ->withNodes($nodes);
+            ->withPageTitle(trans('dashboard.nodes.nodes') . ' - ' . trans('dashboard.dashboard'))
+            ->withNodes($nodes);
     }
 
     /**
@@ -65,7 +65,7 @@ class SectionController extends Controller
     public function create()
     {
         return View::make('dashboard.sections.create_edit')
-            ->withPageTitle(trans('dashboard.sections.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.sections.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -100,7 +100,7 @@ class SectionController extends Controller
     public function edit(Section $section)
     {
         return View::make('dashboard.sections.create_edit')
-            ->withPageTitle(trans('dashboard.sections.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.sections.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withSection($section);
     }
 
@@ -154,7 +154,7 @@ class SectionController extends Controller
     public function parents()
     {
         return View::make('dashboard.sections.index')
-            ->withPageTitle(trans_choice('dashboard.sections.parents.parents', 2).' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans_choice('dashboard.sections.parents.parents', 2) . ' - ' . trans('dashboard.dashboard'))
             ->withNodes(Node::isParent()->orderBy('order')->get())
             ->withCurrentMenu('parents');
     }

@@ -24,7 +24,7 @@ class Adblock extends AbstractWidget
      * @var array
      */
     protected $config = [
-        'block'    => 'top',
+        'block' => 'top',
         'template' => 'default',
     ];
 

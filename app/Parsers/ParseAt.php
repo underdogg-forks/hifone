@@ -39,8 +39,8 @@ class ParseAt
         $this->body_parsed = $this->body_original;
 
         foreach ($this->users as $user) {
-            $search = '@'.$user->username;
-            $place = Html::link('u/'.$user->username, $search);
+            $search = '@' . $user->username;
+            $place = Html::link('u/' . $user->username, $search);
             //$place = route('users.show', $user->id);
             //$place = $search.route('users.show', $user->id);
 

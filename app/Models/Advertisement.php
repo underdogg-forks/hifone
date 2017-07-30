@@ -35,9 +35,9 @@ class Advertisement extends Model
      * @var string[]
      */
     public $rules = [
-        'name'       => 'required|string',
+        'name' => 'required|string',
         'adspace_id' => 'required|int',
-        'body'       => 'required|string',
+        'body' => 'required|string',
     ];
 
     //

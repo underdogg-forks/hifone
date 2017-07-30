@@ -29,44 +29,44 @@ class ForumRoutes
     {
         $router->group(['middleware' => ['web', 'ready']], function (Registrar $router) {
             $router->get('/', [
-                'as'   => 'home',
+                'as' => 'home',
                 'uses' => 'HomeController@index',
             ]);
 
             $router->get('/excellent', [
-                'as'   => 'excellent',
+                'as' => 'excellent',
                 'uses' => 'HomeController@excellent',
             ]);
 
             $router->get('/feed', [
-                'as'   => 'feed',
+                'as' => 'feed',
                 'uses' => 'HomeController@feed',
             ]);
 
             $router->get('/captcha', [
-                'as'    => 'captcha',
-                'uses'  => 'CaptchaController@index',
+                'as' => 'captcha',
+                'uses' => 'CaptchaController@index',
             ]);
 
             $router->get('/go/{slug}', [
-                'as'   => 'go',
+                'as' => 'go',
                 'uses' => 'NodeController@showBySlug',
             ]);
 
-             //通知中心
+            //通知中心
             $router->get('/notification', [
-                'as'     => 'notification.index',
-                'uses'   => 'NotificationController@index',
+                'as' => 'notification.index',
+                'uses' => 'NotificationController@index',
             ]);
             $router->post('/notification/clean', [
-                'as'    => 'notification.clean',
-                'uses'  => 'NotificationController@clean',
+                'as' => 'notification.clean',
+                'uses' => 'NotificationController@clean',
             ]);
 
             //积分
-             $router->get('/credit', [
-                'as'     => 'credit.index',
-                'uses'   => 'CreditController@index',
+            $router->get('/credit', [
+                'as' => 'credit.index',
+                'uses' => 'CreditController@index',
             ]);
 
             $router->resource('node', 'NodeController');

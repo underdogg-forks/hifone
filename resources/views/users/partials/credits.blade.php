@@ -1,24 +1,24 @@
 <ul class="list-group">
 
-  @foreach ($credits as $index => $credit)
-   <li class="list-group-item" >
+    @foreach ($credits as $index => $credit)
+        <li class="list-group-item">
 
 
-        {!! str_limit($credit->name, '100') !!}
+            {!! str_limit($credit->name, '100') !!}
 
-      <span class="meta">
+            <span class="meta">
 
         
           {!! $credit->rule->name !!}
 
-        <span> • </span>
-        {!! $credit->balance !!}
-        <span> • </span>
+                <span> • </span>
+                {!! $credit->balance !!}
+                <span> • </span>
         <span class="timeago">{!! $credit->created_at !!}</span>
 
       </span>
 
-  </li>
-  @endforeach
+        </li>
+    @endforeach
 
 </ul>

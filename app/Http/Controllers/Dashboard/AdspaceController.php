@@ -30,7 +30,7 @@ class AdspaceController extends Controller
     {
         View::share([
             'current_menu' => 'adspaces',
-            'sub_title'    => trans('dashboard.advertisements.advertisements'),
+            'sub_title' => trans('dashboard.advertisements.advertisements'),
         ]);
     }
 
@@ -39,8 +39,8 @@ class AdspaceController extends Controller
         $adspaces = Adspace::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.adspaces.index')
-        ->withPageTitle(trans('dashboard.adspaces.adspaces').' - '.trans('dashboard.dashboard'))
-        ->withAdspaces($adspaces);
+            ->withPageTitle(trans('dashboard.adspaces.adspaces') . ' - ' . trans('dashboard.dashboard'))
+            ->withAdspaces($adspaces);
     }
 
     public function create()

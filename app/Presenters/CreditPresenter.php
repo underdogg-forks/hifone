@@ -26,7 +26,7 @@ class CreditPresenter extends AbstractPresenter
             $prefix = '<strong class="text-danger">';
         }
 
-        return $prefix.number_format($this->wrappedObject->rule->reward, 1).'</strong>';
+        return $prefix . number_format($this->wrappedObject->rule->reward, 1) . '</strong>';
     }
 
     /**

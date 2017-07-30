@@ -29,7 +29,7 @@ class LinkController extends Controller
     {
         View::share([
             'current_menu' => 'links',
-            'sub_title'    => trans_choice('dashboard.links.links', 2),
+            'sub_title' => trans_choice('dashboard.links.links', 2),
         ]);
     }
 
@@ -43,8 +43,8 @@ class LinkController extends Controller
         $links = Link::orderBy('order')->paginate(10);
 
         return View::make('dashboard.links.index')
-        ->withPageTitle(trans('dashboard.links.links').' - '.trans('dashboard.dashboard'))
-        ->withLinks($links);
+            ->withPageTitle(trans('dashboard.links.links') . ' - ' . trans('dashboard.dashboard'))
+            ->withLinks($links);
     }
 
     /**
@@ -55,7 +55,7 @@ class LinkController extends Controller
     public function create()
     {
         return View::make('dashboard.links.create_edit')
-            ->withPageTitle(trans('dashboard.links.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.links.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -90,7 +90,7 @@ class LinkController extends Controller
     public function edit(Link $link)
     {
         return View::make('dashboard.links.create_edit')
-            ->withPageTitle(trans('dashboard.links.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.links.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withLink($link);
     }
 

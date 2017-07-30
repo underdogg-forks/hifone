@@ -32,14 +32,14 @@ abstract class AbstractNotificationHandler
         $nowTimestamp = Carbon::now()->toDateTimeString();
 
         $data = [
-            'from_user_id'  => $fromUser->id,
-            'user_id'       => $toUser->id,
-            'thread_id'     => $target_id,
-            'reply_id'      => $reply ? $reply->id : 0,
-            'body'          => $reply ? $reply->body : '',
-            'type'          => $type,
-            'created_at'    => $nowTimestamp,
-            'updated_at'    => $nowTimestamp,
+            'from_user_id' => $fromUser->id,
+            'user_id' => $toUser->id,
+            'thread_id' => $target_id,
+            'reply_id' => $reply ? $reply->id : 0,
+            'body' => $reply ? $reply->body : '',
+            'type' => $type,
+            'created_at' => $nowTimestamp,
+            'updated_at' => $nowTimestamp,
         ];
 
         $toUser->increment('notification_count', 1);
@@ -51,10 +51,10 @@ abstract class AbstractNotificationHandler
      * Create a notification.
      *
      * @param [type] $type     currently have 'at', 'new_reply', 'follow', 'append'
-     * @param User   $fromUser come from who
-     * @param array  $users    to who, array of users
-     * @param Thread $thread   cuurent context
-     * @param Reply  $reply    the content
+     * @param User $fromUser come from who
+     * @param array $users to who, array of users
+     * @param Thread $thread cuurent context
+     * @param Reply $reply the content
      *
      * @return [type] none
      */
@@ -65,14 +65,14 @@ abstract class AbstractNotificationHandler
 
         foreach ($users as $toUser) {
             $data[] = [
-                'from_user_id'  => $fromUser->id,
-                'user_id'       => $toUser->id,
-                'thread_id'     => $thread_id,
-                'reply_id'      => $reply_id,
-                'body'          => $content,
-                'type'          => $type,
-                'created_at'    => $nowTimestamp,
-                'updated_at'    => $nowTimestamp,
+                'from_user_id' => $fromUser->id,
+                'user_id' => $toUser->id,
+                'thread_id' => $thread_id,
+                'reply_id' => $reply_id,
+                'body' => $content,
+                'type' => $type,
+                'created_at' => $nowTimestamp,
+                'updated_at' => $nowTimestamp,
             ];
 
             $toUser->increment('notification_count', 1);
@@ -86,9 +86,9 @@ abstract class AbstractNotificationHandler
     protected function isNotified($from_user_id, $user_id, $thread_id, $type)
     {
         return Notification::fromwhom($from_user_id)
-                        ->toWhom($user_id)
-                        ->atThread($thread_id)
-                        ->withType($type)->get()->count();
+            ->toWhom($user_id)
+            ->atThread($thread_id)
+            ->withType($type)->get()->count();
     }
 
     // in case of a user get a lot of the same notification

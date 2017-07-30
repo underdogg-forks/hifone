@@ -42,7 +42,7 @@ class DashboardController extends Controller
     public function index()
     {
         $components = [];
-        $composer_lock = json_decode(file_get_contents(base_path().'/composer.lock'));
+        $composer_lock = json_decode(file_get_contents(base_path() . '/composer.lock'));
         foreach ($composer_lock->packages as $package) {
             if (in_array($package->name, $this->show_components)) {
                 $components[] = $package;

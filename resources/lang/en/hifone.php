@@ -174,7 +174,7 @@ return [
         'links' => 'Useful Links',
     ],
 
-// 统计
+// statistics
     'stats' => [
         'title'   => 'Community Stats',
         'users'   => 'Users',

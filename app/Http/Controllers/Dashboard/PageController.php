@@ -29,7 +29,7 @@ class PageController extends Controller
     {
         View::share([
             'current_menu' => 'page',
-            'sub_title'    => trans_choice('dashboard.pages.pages', 2),
+            'sub_title' => trans_choice('dashboard.pages.pages', 2),
         ]);
     }
 
@@ -38,14 +38,14 @@ class PageController extends Controller
         $pages = Page::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.pages.index')
-            ->withPageTitle(trans('dashboard.pages.pages').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.pages.pages') . ' - ' . trans('dashboard.dashboard'))
             ->withPages($pages);
     }
 
     public function create()
     {
         return View::make('dashboard.pages.create_edit')
-            ->withPageTitle(trans('dashboard.pages.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.pages.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     public function store()
@@ -77,7 +77,7 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
 
         return View::make('dashboard.pages.create_edit')
-            ->withPageTitle(trans('dashboard.pages.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.pages.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withPage($page);
     }
 

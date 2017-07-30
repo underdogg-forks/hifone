@@ -44,7 +44,7 @@ class Adshow extends AbstractWidget
             return '';
         }
 
-        return View::make('widgets.adshow.'.$this->config['template'])
+        return View::make('widgets.adshow.' . $this->config['template'])
             ->withConfig($this->config)
             ->withAdspace($adspace)
             ->withAdvertisements($this->getAdvertisements($adspace));
@@ -52,7 +52,7 @@ class Adshow extends AbstractWidget
 
     private function getAdvertisements($adspace)
     {
-        return Cache::remember(self::CACHE_KEY.$adspace->id, self::CACHE_MINUTES, function () use ($adspace) {
+        return Cache::remember(self::CACHE_KEY . $adspace->id, self::CACHE_MINUTES, function () use ($adspace) {
             return $adspace->advertisements()->get();
         });
     }

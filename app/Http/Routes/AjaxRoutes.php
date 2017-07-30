@@ -31,71 +31,71 @@ class AjaxRoutes
 
             //下沉
             $router->post('thread/{thread}/sink', [
-                'as'         => 'thread.sink',
+                'as' => 'thread.sink',
                 'middleware' => ['permission:manage_threads'],
-                'uses'       => 'ThreadController@sink',
+                'uses' => 'ThreadController@sink',
             ]);
-             //推荐
+            //推荐
             $router->post('thread/{thread}/recomend', [
-                'as'         => 'thread.recomend',
+                'as' => 'thread.recomend',
                 'middleware' => ['permission:manage_threads'],
-                'uses'       => 'ThreadController@recomend',
+                'uses' => 'ThreadController@recomend',
             ]);
             //置顶
             $router->post('thread/{thread}/pin', [
-                'as'         => 'thread.pin',
+                'as' => 'thread.pin',
                 'middleware' => ['permission:manage_threads'],
-                'uses'       => 'ThreadController@pin',
+                'uses' => 'ThreadController@pin',
             ]);
             //删除
             $router->delete('thread/{thread}/delete', [
-                'as'         => 'thread.destroy',
+                'as' => 'thread.destroy',
                 'middleware' => ['permission:manage_threads'],
-                'uses'       => 'ThreadController@destroy',
+                'uses' => 'ThreadController@destroy',
             ]);
 
             $router->resource('like', 'LikeController');
 
             $router->post('/thread/{thread}/append', [
-                'as'   => 'thread.append',
+                'as' => 'thread.append',
                 'uses' => 'ThreadController@append',
             ]);
 
             $router->post('/follow/{thread}', [
-                'as'     => 'follow.createOrDelete',
-                'uses'   => 'FollowController@createOrDelete',
+                'as' => 'follow.createOrDelete',
+                'uses' => 'FollowController@createOrDelete',
             ]);
 
             $router->post('/follow/user/{user}', [
-                'as'     => 'follow.user',
-                'uses'   => 'FollowController@createOrDeleteUser',
+                'as' => 'follow.user',
+                'uses' => 'FollowController@createOrDeleteUser',
             ]);
 
             $router->delete('reply/{reply}/delete', [
-                'as'     => 'reply.destroy',
-                'uses'   => 'ReplyController@destroy',
+                'as' => 'reply.destroy',
+                'uses' => 'ReplyController@destroy',
             ]);
 
             $router->post('/favorite/{thread}', [
-                'as'     => 'favorite.createOrDelete',
-                'uses'   => 'FavoriteController@createOrDelete',
+                'as' => 'favorite.createOrDelete',
+                'uses' => 'FavoriteController@createOrDelete',
             ]);
 
             //获取通知数
             $router->get('/notification/count', [
-                'as'     => 'notification.count',
-                'uses'   => 'NotificationController@count',
+                'as' => 'notification.count',
+                'uses' => 'NotificationController@count',
             ]);
 
             $router->post('upload_image', [
-                'as'     => 'upload_image',
-                'uses'   => 'UploadController@uploadImage',
+                'as' => 'upload_image',
+                'uses' => 'UploadController@uploadImage',
             ]);
 
             $router->post('user/{user}/blocking', [
-                'as'         => 'user.blocking',
+                'as' => 'user.blocking',
                 'middleware' => ['permission:manage_users'],
-                'uses'       => 'UserController@blocking',
+                'uses' => 'UserController@blocking',
             ]);
         });
     }

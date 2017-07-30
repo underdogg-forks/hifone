@@ -37,8 +37,8 @@ class CreditRule extends Model
      * @var string[]
      */
     public $rules = [
-        'name'      => 'required|string',
-        'slug'      => 'required|string',
-        'reward'    => 'required|int',
+        'name' => 'required|string',
+        'slug' => 'required|string',
+        'reward' => 'required|int',
     ];
 }

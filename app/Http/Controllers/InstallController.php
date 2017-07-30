@@ -37,12 +37,12 @@ class InstallController extends Controller
      * @var string[]
      */
     protected $cacheDrivers = [
-        'apc'       => 'APC(u)',
-        'array'     => 'Array',
-        'file'      => 'File',
-        'database'  => 'Database',
+        'apc' => 'APC(u)',
+        'array' => 'Array',
+        'file' => 'File',
+        'database' => 'Database',
         'memcached' => 'Memcached',
-        'redis'     => 'Redis',
+        'redis' => 'Redis',
     ];
     /**
      * Array of step1 rules.
@@ -75,17 +75,17 @@ class InstallController extends Controller
         $this->hasher = $hasher;
 
         $this->rulesStep1 = [
-            'env.cache_driver'   => 'required|in:'.implode(',', array_keys($this->cacheDrivers)),
-            'env.session_driver' => 'required|in:'.implode(',', array_keys($this->cacheDrivers)),
+            'env.cache_driver' => 'required|in:' . implode(',', array_keys($this->cacheDrivers)),
+            'env.session_driver' => 'required|in:' . implode(',', array_keys($this->cacheDrivers)),
         ];
         $this->rulesStep2 = [
-            'settings.site_name'     => 'required',
-            'settings.site_domain'   => 'required',
-            'settings.show_support'  => 'bool',
+            'settings.site_name' => 'required',
+            'settings.site_domain' => 'required',
+            'settings.show_support' => 'bool',
         ];
         $this->rulesStep3 = [
             'user.username' => ['required', 'regex:/\A(?!.*[:;]-\))[ -~]+\z/'],
-            'user.email'    => 'email|required',
+            'user.email' => 'email|required',
             'user.password' => 'required',
         ];
     }
@@ -174,9 +174,9 @@ class InstallController extends Controller
             ]);
 
             Node::create([
-                'section_id'   => $section->id,
-                'name'         => 'Default',
-                'slug'         => 'default',
+                'section_id' => $section->id,
+                'name' => 'Default',
+                'slug' => 'default',
             ]);
 
             // Pull the user details out.
@@ -192,10 +192,10 @@ class InstallController extends Controller
             $userDetails['salt'] = str_random(16);
 
             $user = User::create([
-                'username'     => $userDetails['username'],
-                'email'        => $userDetails['email'],
-                'password'     => $this->hasher->make($userDetails['password'], ['salt' => $userDetails['salt']]),
-                'salt'         => $userDetails['salt'],
+                'username' => $userDetails['username'],
+                'email' => $userDetails['email'],
+                'password' => $this->hasher->make($userDetails['password'], ['salt' => $userDetails['salt']]),
+                'salt' => $userDetails['salt'],
             ]);
             // Attach Roles to user
             $user->roles()->attach($founder->id);
@@ -238,13 +238,13 @@ class InstallController extends Controller
             new FileWritableVerifier(storage_path('')),
             new FileWritableVerifier(public_path('uploads/avatar')),
             new FileWritableVerifier(public_path('uploads/images')),
-       ];
+        ];
 
         $rootVerifier = new CompositeVerifier('Requirements', $verifiers);
 
         View::share([
             'root_verifier' => $rootVerifier,
-            'verifiers'     => $verifiers,
+            'verifiers' => $verifiers,
         ]);
 
         return View::make('install.verify');
@@ -254,7 +254,7 @@ class InstallController extends Controller
      * Writes to the .env file with given parameters.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     protected function writeEnv($key, $value)
     {

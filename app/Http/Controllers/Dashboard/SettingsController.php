@@ -32,7 +32,7 @@ class SettingsController extends Controller
     {
         View::share([
             'current_menu' => 'general',
-            'sub_title'    => '',
+            'sub_title' => '',
         ]);
 
         if (!Request::isMethod('post')) {
@@ -48,7 +48,7 @@ class SettingsController extends Controller
     public function showGeneralView()
     {
         return View::make('dashboard.settings.general')
-            ->withPageTitle(trans('dashboard.settings.general.general').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.settings.general.general') . ' - ' . trans('dashboard.dashboard'))
             ->withCurrentMenu('general')
             ->withRawSiteAbout(Config::get('setting.site_about'));
     }
@@ -61,7 +61,7 @@ class SettingsController extends Controller
     public function showLocalizationView()
     {
         return View::make('dashboard.settings.localization')
-            ->withPageTitle(trans('dashboard.settings.localization.localization').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.settings.localization.localization') . ' - ' . trans('dashboard.dashboard'))
             ->withCurrentMenu('localization')
             ->withRawSiteAbout(Config::get('setting.site_about'));
     }
@@ -74,7 +74,7 @@ class SettingsController extends Controller
     public function showCustomizationView()
     {
         return View::make('dashboard.settings.customization')
-            ->withPageTitle(trans('dashboard.settings.customization.customization').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.settings.customization.customization') . ' - ' . trans('dashboard.dashboard'))
             ->withCurrentMenu('customization');
     }
 
@@ -86,7 +86,7 @@ class SettingsController extends Controller
     public function showAboutusView()
     {
         return View::make('dashboard.settings.aboutus')
-            ->withPageTitle(trans('dashboard.settings.system.aboutus').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.settings.system.aboutus') . ' - ' . trans('dashboard.dashboard'))
             ->withCurrentMenu('aboutus');
     }
 

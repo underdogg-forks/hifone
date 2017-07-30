@@ -31,7 +31,7 @@ class ReplyController extends Controller
     {
         View::share([
             'current_menu' => 'replies',
-            'sub_title'    => trans_choice('dashboard.replies.replies', 2),
+            'sub_title' => trans_choice('dashboard.replies.replies', 2),
         ]);
     }
 
@@ -40,7 +40,7 @@ class ReplyController extends Controller
         $replies = Reply::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.replies.index')
-            ->withPageTitle(trans('dashboard.replies.replies').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.replies.replies') . ' - ' . trans('dashboard.dashboard'))
             ->withReplies($replies);
     }
 
@@ -54,7 +54,7 @@ class ReplyController extends Controller
     public function edit(Reply $reply)
     {
         return View::make('dashboard.replies.create_edit')
-            ->withPageTitle(trans('dashboard.replies.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.replies.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withReply($reply);
     }
 

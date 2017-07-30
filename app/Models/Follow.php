@@ -31,9 +31,9 @@ class Follow extends Model
      * @var string[]
      */
     public $rules = [
-        'user_id'          => 'required|int',
-        'followable_id'    => 'required|int',
-        'followable_type'  => 'required|string',
+        'user_id' => 'required|int',
+        'followable_id' => 'required|int',
+        'followable_type' => 'required|string',
     ];
 
     public function followable()

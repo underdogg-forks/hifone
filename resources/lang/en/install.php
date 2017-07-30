@@ -10,19 +10,19 @@
  */
 
 return [
-    'install'             => '安装',
-    'title'               => '安装向导',
+    'install'             => 'install',
+    'title'               => 'title',
     'service_details'     => 'Service Details',
-    'env_check'           => '环境检测',
-    'env_setup'           => '环境设置',
-    'config_setup'        => '参数设置',
+    'env_check'           => 'env_check',
+    'env_setup'           => 'env_setup',
+    'config_setup'        => 'config_setup',
     'show_support'        => 'Show support for Hifone?',
-    'admin_account'       => '账号设置',
-    'complete_install'    => '完成安装',
+    'admin_account'       => 'admin_account',
+    'complete_install'    => 'complete_install',
     'completed'           => 'Hifone has been configured successfully!',
     'finish_install'      => 'Go to dashboard',
-    'next_step'           => '下一步',
-    'prev_step'           => '上一步',
+    'next_step'           => 'next_step',
+    'prev_step'           => 'prev_step',
 
     'email'            => 'Email',
     'username'         => 'Username',

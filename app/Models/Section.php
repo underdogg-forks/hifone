@@ -36,8 +36,8 @@ class Section extends Model
      * @var string[]
      */
     public $rules = [
-        'name'      => 'required|string',
-        'order'     => 'int',
+        'name' => 'required|string',
+        'order' => 'int',
     ];
 
     public function nodes()

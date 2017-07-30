@@ -30,7 +30,7 @@ class LocaleComposer
             $locale = basename($lang);
 
             return [$locale => $enabledLangs[$locale]];
-        }, glob(base_path('resources/lang').'/*'));
+        }, glob(base_path('resources/lang') . '/*'));
 
         $langs = call_user_func_array('array_merge', $langs);
 

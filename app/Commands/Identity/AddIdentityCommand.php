@@ -29,9 +29,9 @@ final class AddIdentityCommand
      * @var string[]
      */
     public $rules = [
-        'user_id'     => 'int|required',
+        'user_id' => 'int|required',
         'provider_id' => 'int|required',
-        'extern_uid'  => 'int|required',
+        'extern_uid' => 'int|required',
     ];
 
     /**

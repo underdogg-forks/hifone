@@ -1,6 +1,6 @@
 @if (isset($advertisements) && count($advertisements))
-<!-- {{ $adspace->name }} -->
+        <!-- {{ $adspace->name }} -->
 @foreach ($advertisements as $ad)
-{!! $ad->body !!}
+    {!! $ad->body !!}
 @endforeach
 @endif

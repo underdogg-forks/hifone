@@ -51,10 +51,10 @@ class Thread extends Model implements HasPresenter
      * @var string[]
      */
     public $rules = [
-        'title'        => 'required|min:2',
-        'body'         => 'required|min:2',
-        'node_id'      => 'required|int',
-        'user_id'      => 'required|int',
+        'title' => 'required|min:2',
+        'body' => 'required|min:2',
+        'node_id' => 'required|int',
+        'user_id' => 'required|int',
     ];
 
     public function likes()
@@ -108,8 +108,8 @@ class Thread extends Model implements HasPresenter
     public function scopeNodeThreads($query, $filter, $node_id)
     {
         return $this->filter($filter == 'default' ? 'node' : $filter)
-                    ->where('node_id', '=', $node_id)
-                    ->with('user', 'node', 'lastReplyUser');
+            ->where('node_id', '=', $node_id)
+            ->with('user', 'node', 'lastReplyUser');
     }
 
     public function scopeFilter($query, $filter)
@@ -142,7 +142,7 @@ class Thread extends Model implements HasPresenter
             return;
         }
 
-        return  $query->where(function ($query) use ($search) {
+        return $query->where(function ($query) use ($search) {
             $query->where('title', 'LIKE', "%$search%");
         });
     }
@@ -153,9 +153,9 @@ class Thread extends Model implements HasPresenter
     public function getSameNodeThreads($limit = 8)
     {
         return $this->where('node_id', '=', $this->node_id)
-                        ->recent()
-                        ->take($limit)
-                        ->get();
+            ->recent()
+            ->take($limit)
+            ->get();
     }
 
     public function scopeWhose($query, $user_id)
@@ -170,15 +170,15 @@ class Thread extends Model implements HasPresenter
 
     public function scopePinAndRecentReply($query)
     {
-        return $query->whereRaw("(`created_at` > '".Carbon::today()->subMonth()->toDateString()."' or (`order` > 0) )")
-                     ->orderBy('order', 'desc')
-                     ->orderBy('updated_at', 'desc');
+        return $query->whereRaw("(`created_at` > '" . Carbon::today()->subMonth()->toDateString() . "' or (`order` > 0) )")
+            ->orderBy('order', 'desc')
+            ->orderBy('updated_at', 'desc');
     }
 
     public function scopeRecentReply($query)
     {
         return $query->orderBy('order', 'desc')
-                     ->orderBy('updated_at', 'desc');
+            ->orderBy('updated_at', 'desc');
     }
 
     public function scopeExcellent($query)

@@ -39,8 +39,8 @@ class AdvertisementController extends Controller
         $advertisements = Advertisement::orderBy('created_at', 'desc')->paginate(10);
 
         return View::make('dashboard.advertisements.index')
-        ->withPageTitle(trans('dashboard.advertisements.advertisements').' - '.trans('dashboard.dashboard'))
-        ->withAdvertisements($advertisements);
+            ->withPageTitle(trans('dashboard.advertisements.advertisements') . ' - ' . trans('dashboard.dashboard'))
+            ->withAdvertisements($advertisements);
     }
 
     public function create()

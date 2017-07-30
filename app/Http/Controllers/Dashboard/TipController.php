@@ -28,7 +28,7 @@ class TipController extends Controller
     {
         View::share([
             'current_menu' => 'tips',
-            'sub_title'    => trans_choice('dashboard.tips.tips', 2),
+            'sub_title' => trans_choice('dashboard.tips.tips', 2),
         ]);
     }
 
@@ -42,8 +42,8 @@ class TipController extends Controller
         $tips = Tip::paginate(10);
 
         return View::make('dashboard.tips.index')
-        ->withPageTitle(trans('dashboard.tips.tips').' - '.trans('dashboard.dashboard'))
-        ->withTips($tips);
+            ->withPageTitle(trans('dashboard.tips.tips') . ' - ' . trans('dashboard.dashboard'))
+            ->withTips($tips);
     }
 
     /**
@@ -54,7 +54,7 @@ class TipController extends Controller
     public function create()
     {
         return View::make('dashboard.tips.create_edit')
-            ->withPageTitle(trans('dashboard.tips.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.tips.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -89,7 +89,7 @@ class TipController extends Controller
     public function edit(Tip $tip)
     {
         return View::make('dashboard.tips.create_edit')
-            ->withPageTitle(trans('dashboard.tips.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.tips.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withTip($tip);
     }
 

@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
         'Hifone\Events\Advertisement\AdvertisementWasUpdatedEvent' => [
             'Hifone\Handlers\Events\Advertisement\RemoveAdvertisementCacheHandler',
         ],
-         // Append
+        // Append
         'Hifone\Events\Append\AppendWasAddedEvent' => [
             'Hifone\Handlers\Events\Notification\SendAppendNotificationHandler',
         ],
@@ -36,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
             'Hifone\Handlers\Events\Notification\SendSingleNotificationHandler',
         ],
 
-         //
+        //
         'Hifone\Events\Follow\FollowWasAddedEvent' => [
             'Hifone\Handlers\Events\Notification\SendSingleNotificationHandler',
         ],

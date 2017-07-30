@@ -26,27 +26,27 @@ class ContentMenuComposer
     {
         $subMenu = [
             'threads' => [
-                'title'  => trans('dashboard.threads.threads'),
-                'url'    => route('dashboard.thread.index'),
-                'icon'   => 'fa fa-file-o',
+                'title' => trans('dashboard.threads.threads'),
+                'url' => route('dashboard.thread.index'),
+                'icon' => 'fa fa-file-o',
                 'active' => false,
             ],
             'replies' => [
-                'title'  => trans('dashboard.replies.replies'),
-                'url'    => route('dashboard.reply.index'),
-                'icon'   => 'fa fa-comments-o',
+                'title' => trans('dashboard.replies.replies'),
+                'url' => route('dashboard.reply.index'),
+                'icon' => 'fa fa-comments-o',
                 'active' => false,
             ],
             'photo' => [
-                'title'  => trans('dashboard.photos.photos'),
-                'url'    => route('dashboard.photo.index'),
-                'icon'   => 'fa fa-image',
+                'title' => trans('dashboard.photos.photos'),
+                'url' => route('dashboard.photo.index'),
+                'icon' => 'fa fa-image',
                 'active' => false,
             ],
             'page' => [
-                'title'  => trans('dashboard.pages.pages'),
-                'url'    => route('dashboard.page.index'),
-                'icon'   => 'fa fa-file-o',
+                'title' => trans('dashboard.pages.pages'),
+                'url' => route('dashboard.page.index'),
+                'icon' => 'fa fa-file-o',
                 'active' => false,
             ],
         ];

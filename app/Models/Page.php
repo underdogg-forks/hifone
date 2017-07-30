@@ -38,9 +38,9 @@ class Page extends Model
      * @var string[]
      */
     public $rules = [
-        'title'      => 'required|string',
-        'slug'       => 'required|string',
-        'body'       => 'string',
+        'title' => 'required|string',
+        'slug' => 'required|string',
+        'body' => 'string',
     ];
 
     public function getUrlAttribute()

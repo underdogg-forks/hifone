@@ -28,7 +28,7 @@ class LocationController extends Controller
     {
         View::share([
             'current_menu' => 'locations',
-            'sub_title'    => trans_choice('dashboard.locations.locations', 2),
+            'sub_title' => trans_choice('dashboard.locations.locations', 2),
         ]);
     }
 
@@ -42,8 +42,8 @@ class LocationController extends Controller
         $locations = Location::orderBy('order')->paginate(10);
 
         return View::make('dashboard.locations.index')
-        ->withPageTitle(trans('dashboard.locations.locations').' - '.trans('dashboard.dashboard'))
-        ->withLocations($locations);
+            ->withPageTitle(trans('dashboard.locations.locations') . ' - ' . trans('dashboard.dashboard'))
+            ->withLocations($locations);
     }
 
     /**
@@ -54,7 +54,7 @@ class LocationController extends Controller
     public function create()
     {
         return View::make('dashboard.locations.create_edit')
-            ->withPageTitle(trans('dashboard.locations.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.locations.add.title') . ' - ' . trans('dashboard.dashboard'));
     }
 
     /**
@@ -89,7 +89,7 @@ class LocationController extends Controller
     public function edit(Location $location)
     {
         return View::make('dashboard.locations.create_edit')
-            ->withPageTitle(trans('dashboard.locations.edit.title').' - '.trans('dashboard.dashboard'))
+            ->withPageTitle(trans('dashboard.locations.edit.title') . ' - ' . trans('dashboard.dashboard'))
             ->withLocation($location);
     }
 

@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="clearfix"></div>
-        <hr />
+        <hr/>
         <ul>
             <li {!! set_active('dashboard') !!}>
                 <a href="{{ route('dashboard.index') }}">
@@ -27,12 +27,6 @@
                 <a href="{{ route('dashboard.node.index') }}">
                     <i class="fa fa-sitemap"></i>
                     <span>{{ trans('dashboard.nodes.nodes') }}</span>
-                </a>
-            </li>
-            <li {!! set_active('dashboard/adspace*') !!} {!! set_active('dashboard/advertisement*') !!} {!! set_active('dashboard/adblock*') !!}>
-                <a href="{{ route('dashboard.advertisement.index') }}">
-                    <i class="fa fa-audio-description"></i>
-                    <span>{{ trans('dashboard.advertisements.advertisements') }}</span>
                 </a>
             </li>
             <li {!! set_active('dashboard/user*') !!}>

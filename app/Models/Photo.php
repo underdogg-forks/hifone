@@ -36,8 +36,8 @@ class Photo extends Model
      * @var string[]
      */
     public $rules = [
-        'image'      => 'required|string',
-        'user_id'    => 'required|int',
+        'image' => 'required|string',
+        'user_id' => 'required|int',
     ];
 
     public function user()

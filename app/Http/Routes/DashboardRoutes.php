@@ -29,26 +29,26 @@ class DashboardRoutes
     {
         $router->group(['middleware' => ['web', 'auth', 'role:Admin|Founder'], 'prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'dashboard.'], function (Registrar $router) {
             $router->get('/', [
-                'as'   => 'index',
+                'as' => 'index',
                 'uses' => 'DashboardController@index',
             ]);
 
             // Settings
             $router->group(['as' => 'settings.', 'prefix' => 'settings'], function (Registrar $router) {
                 $router->get('general', [
-                    'as'   => 'general',
+                    'as' => 'general',
                     'uses' => 'SettingsController@showGeneralView',
                 ]);
                 $router->get('localization', [
-                    'as'   => 'localization',
+                    'as' => 'localization',
                     'uses' => 'SettingsController@showLocalizationView',
                 ]);
                 $router->get('customization', [
-                    'as'   => 'customization',
+                    'as' => 'customization',
                     'uses' => 'SettingsController@showCustomizationView',
                 ]);
                 $router->get('aboutus', [
-                    'as'   => 'aboutus',
+                    'as' => 'aboutus',
                     'uses' => 'SettingsController@showAboutusView',
                 ]);
                 $router->post('/', 'SettingsController@postSettings');
@@ -70,7 +70,7 @@ class DashboardRoutes
             $router->resource('adblock', 'AdblockController');
             $router->resource('adspace', 'AdspaceController');
             $router->resource('advertisement', 'AdvertisementController');
-             // Photos
+            // Photos
             $router->resource('photo', 'PhotoController');
             // Pages
             $router->resource('page', 'PageController');

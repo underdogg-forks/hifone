@@ -26,13 +26,13 @@ class Notification extends Model implements HasPresenter
      * @var string[]
      */
     protected $fillable = [
-            'from_user_id',
-            'user_id',
-            'thread_id',
-            'reply_id',
-            'body',
-            'type',
-            ];
+        'from_user_id',
+        'user_id',
+        'thread_id',
+        'reply_id',
+        'body',
+        'type',
+    ];
 
     public function user()
     {

@@ -29,7 +29,7 @@ class PasswordHasher implements HasherContract
         // possibly we get salt from options
         $salt = array_get($options, 'salt', '');
 
-        return md5(md5($value).$salt);
+        return md5(md5($value) . $salt);
     }
 
     /**

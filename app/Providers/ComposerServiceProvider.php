@@ -41,20 +41,20 @@ class ComposerServiceProvider extends ServiceProvider
 
         $factory->composer([
             'install.*',
-            'dashboard.settings.*', ], LocaleComposer::class);
+            'dashboard.settings.*',], LocaleComposer::class);
 
         // 广告
         $factory->composer([
             'dashboard.adblocks.*',
             'dashboard.advertisements.*',
-            'dashboard.adspaces.*', ], AdvertisementMenuComposer::class);
+            'dashboard.adspaces.*',], AdvertisementMenuComposer::class);
 
         //内容
         $factory->composer([
             'dashboard.threads.*',
             'dashboard.replies.*',
             'dashboard.photos.*',
-            'dashboard.pages.*', ], ContentMenuComposer::class);
+            'dashboard.pages.*',], ContentMenuComposer::class);
 
         // 节点
         $factory->composer(['dashboard.nodes.*', 'dashboard.sections.*'], NodeMenuComposer::class);
@@ -63,7 +63,7 @@ class ComposerServiceProvider extends ServiceProvider
             'dashboard.tips.*',
             'dashboard.links.*',
             'dashboard.locations.*',
-            'dashboard.settings.*', ], SettingMenuComposer::class);
+            'dashboard.settings.*',], SettingMenuComposer::class);
     }
 
     /**

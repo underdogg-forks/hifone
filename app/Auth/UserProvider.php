@@ -26,7 +26,6 @@ class UserProvider extends EloquentUserProvider
                 'salt' => $user->salt,
             ]);
         }
-
         return parent::validateCredentials($user, $credentials);
     }
 }

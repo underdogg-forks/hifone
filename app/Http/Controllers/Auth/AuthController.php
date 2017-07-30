@@ -44,7 +44,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    //注册后返回主页
+    //registered后返回主页
     protected $redirectPath = '/';
 
     protected $hasher;
@@ -86,11 +86,11 @@ class AuthController extends Controller
         if ($verifycode != Session::get('phrase')) {
             // instructions if user phrase is good
             return Redirect::to('auth/login')
-            ->withInput(Input::except('password'))
-            ->withError(trans('hifone.captcha.failure'));
+                ->withInput(Input::except('password'))
+                ->withError(trans('hifone.captcha.failure'));
         }
 
-         // Login with username or email.
+        // Login with username or email.
         $loginKey = Str::contains($loginData['login'], '@') ? 'email' : 'username';
         $loginData[$loginKey] = array_pull($loginData, 'login');
         // Validate login credentials.
@@ -132,11 +132,11 @@ class AuthController extends Controller
         $from = '';
         if ($connect_data && isset($connect_data['extern_uid'])) {
             $registerData = [
-                'username' => $connect_data['nickname'].'_'.$connect_data['provider_id'],
+                'username' => $connect_data['nickname'] . '_' . $connect_data['provider_id'],
                 'nickname' => $connect_data['nickname'],
                 'password' => $this->hashPassword(str_random(8), ''),
-                'email'    => $connect_data['extern_uid'].'@'.$connect_data['provider_id'],
-                'salt'     => '',
+                'email' => $connect_data['extern_uid'] . '@' . $connect_data['provider_id'],
+                'salt' => '',
             ];
             $from = 'provider';
         } else {
@@ -183,10 +183,10 @@ class AuthController extends Controller
         $password = $this->hashPassword($data['password'], $salt);
 
         $user = User::create([
-            'username'     => $data['username'],
-            'email'        => $data['email'],
-            'salt'         => $salt,
-            'password'     => $password,
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'salt' => $salt,
+            'password' => $password,
         ]);
 
         return $user;
@@ -196,7 +196,7 @@ class AuthController extends Controller
      * hash user's raw password.
      *
      * @param string $password plain text form of user's password
-     * @param string $salt     salt
+     * @param string $salt salt
      *
      * @return string hashed password
      */
@@ -247,7 +247,7 @@ class AuthController extends Controller
             }
 
             return Redirect::to('/')
-            ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.login.success')));
+                ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.login.success')));
         }
     }
 

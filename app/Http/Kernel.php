@@ -50,14 +50,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \Hifone\Http\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'auth.api'      => \Hifone\Http\Middleware\ApiAuthentication::class,
-        'guest'         => \Hifone\Http\Middleware\RedirectIfAuthenticated::class,
-        'ready'         => \Hifone\Http\Middleware\ReadyForUse::class,
+        'auth' => \Hifone\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.api' => \Hifone\Http\Middleware\ApiAuthentication::class,
+        'guest' => \Hifone\Http\Middleware\RedirectIfAuthenticated::class,
+        'ready' => \Hifone\Http\Middleware\ReadyForUse::class,
         'not_installed' => \Hifone\Http\Middleware\RedirectIfInstallCompleted::class,
-        'role'          => \Zizaco\Entrust\Middleware\EntrustRole::class,
-        'permission'    => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-        'ability'       => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
     ];
 }

@@ -25,8 +25,8 @@ final class AddReplyCommand
      * @var string[]
      */
     public $rules = [
-        'body'      => 'required|string',
-        'user_id'   => 'int',
+        'body' => 'required|string',
+        'user_id' => 'int',
         'thread_id' => 'int',
     ];
 

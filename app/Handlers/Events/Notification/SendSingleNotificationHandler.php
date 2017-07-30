@@ -19,7 +19,6 @@ use Hifone\Events\Like\LikeEventInterface;
 use Hifone\Events\Thread\ThreadWasMarkedExcellentEvent;
 use Hifone\Events\Thread\ThreadWasMovedEvent;
 use Hifone\Models\Thread;
-use Hifone\Models\User;
 
 class SendSingleNotificationHandler extends AbstractNotificationHandler
 {

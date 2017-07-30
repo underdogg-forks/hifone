@@ -11,7 +11,6 @@
 
 namespace Hifone\Http\Controllers;
 
-use Hifone\Models\Node;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
 use Illuminate\Support\Facades\Config;
@@ -28,7 +27,7 @@ class HomeController extends Controller
         $class = Config::get('setting.home_controller') ?: 'ThreadController';
         $method = Config::get('setting.home_method') ?: 'index';
 
-        return app('Hifone\Http\Controllers\\'.$class)->$method();
+        return app('Hifone\Http\Controllers\\' . $class)->$method();
     }
 
     /**

@@ -20,11 +20,16 @@ class TipPresenter extends AbstractPresenter
     public function status_color()
     {
         switch ($this->wrappedObject->status) {
-            case 1: return 'green';
-            case 2: return 'blue';
-            case 3: return 'yellow';
-            case 4: return 'red';
-            default: return '';
+            case 1:
+                return 'green';
+            case 2:
+                return 'blue';
+            case 3:
+                return 'yellow';
+            case 4:
+                return 'red';
+            default:
+                return '';
         }
     }
 

@@ -24,7 +24,7 @@ class PhpVersionVerifier extends AbstractVerifier
 
     public function getName()
     {
-        return 'PHP Version >= '.$this->majorVersion.'.'.$this->minorVersion.' ('.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.')';
+        return 'PHP Version >= ' . $this->majorVersion . '.' . $this->minorVersion . ' (' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . ')';
     }
 
     /**
@@ -34,6 +34,6 @@ class PhpVersionVerifier extends AbstractVerifier
      */
     public function verify()
     {
-        return version_compare(PHP_VERSION, $this->majorVersion.'.'.$this->minorVersion, '>=');
+        return version_compare(PHP_VERSION, $this->majorVersion . '.' . $this->minorVersion, '>=');
     }
 }

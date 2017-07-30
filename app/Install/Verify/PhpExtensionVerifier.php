@@ -20,7 +20,7 @@ class PhpExtensionVerifier extends AbstractVerifier
 
     public function getName()
     {
-        return "PHP Extension: '".$this->extension."'";
+        return "PHP Extension: '" . $this->extension . "'";
     }
 
     /**

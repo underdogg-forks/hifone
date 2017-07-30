@@ -18,7 +18,7 @@ class NotificationPresenter extends AbstractPresenter
         //return "test";
         switch ($this->wrappedObject->type) {
             case 'new_reply':
-            $label = trans('hifone.notifications.new_reply');
+                $label = trans('hifone.notifications.new_reply');
                 break;
             case 'follow':
                 $label = trans('hifone.notifications.follow');
@@ -51,10 +51,10 @@ class NotificationPresenter extends AbstractPresenter
                 $label = trans('hifone.notifications.follow_append');
                 break;
             case 'user_follow':
-                 $label = trans('hifone.notifications.user_follow');
+                $label = trans('hifone.notifications.user_follow');
                 break;
             case 'user_follow_thread':
-                 $label = trans('hifone.notifications.user_follow_thread');
+                $label = trans('hifone.notifications.user_follow_thread');
                 break;
             default:
                 $label = 'unknow';
