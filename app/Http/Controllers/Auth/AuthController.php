@@ -23,6 +23,7 @@ use Hifone\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -44,7 +45,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    //registered后返回主页
+    //registered
     protected $redirectPath = '/';
 
     protected $hasher;
@@ -57,18 +58,19 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        $providers = Provider::orderBy('created_at', 'desc')->get();
+        $providers = Provider::recent()->get();
 
-        return View::make('auth.login')
+        return $this->view('auth.login')
+            ->withCaptchaLoginDisabled(Config::get('setting.captcha_login_disabled'))
             ->withCaptcha(route('captcha', ['random' => time()]))
             ->withConnectData(Session::get('connect_data'))
             ->withProviders($providers)
-            ->withPageTitle(trans('dashboard.login.login'));
+            ->withPageTitle(trans('hifone.login.login'));
     }
 
     public function landing()
     {
-        return View::make('auth.landing')
+        return $this->view('auth.landing')
             ->withConnectData(Session::get('connect_data'))
             ->withPageTitle('');
     }
@@ -83,7 +85,7 @@ class AuthController extends Controller
         $loginData = Input::only(['login', 'password', 'verifycode']);
 
         $verifycode = array_pull($loginData, 'verifycode');
-        if ($verifycode != Session::get('phrase')) {
+        if (!Config::get('setting.captcha_login_disabled') && $verifycode != Session::get('phrase')) {
             // instructions if user phrase is good
             return Redirect::to('auth/login')
                 ->withInput(Input::except('password'))
@@ -119,10 +121,11 @@ class AuthController extends Controller
     {
         $connect_data = Session::get('connect_data');
 
-        return View::make('auth.register')
+        return $this->view('auth.register')
+            ->withCaptchaRegisterDisabled(Config::get('setting.captcha_register_disabled'))
             ->withCaptcha(route('captcha', ['random' => time()]))
             ->withConnectData($connect_data)
-            ->withPageTitle(trans('dashboard.login.login'));
+            ->withPageTitle(trans('hifone.login.login'));
     }
 
     public function postRegister()
@@ -142,9 +145,10 @@ class AuthController extends Controller
         } else {
             $registerData = Input::only(['username', 'email', 'password', 'password_confirmation', 'verifycode']);
 
-            if ($registerData['verifycode'] != Session::get('phrase')) {
+            $verifycode = array_pull($registerData, 'verifycode');
+            if (!Config::get('setting.captcha_register_disabled') && $verifycode != Session::get('phrase')) {
                 return Redirect::to('auth/register')
-                    ->withTitle(sprintf('%s %s', trans('hifone.whoops'), trans('dashboard.users.add.failure')))
+                    ->withTitle(sprintf('%s %s', trans('hifone.whoops'), trans('hifone.users.add.failure')))
                     ->withInput(Input::all())
                     ->withErrors([trans('hifone.captcha.failure')]);
             }
@@ -153,7 +157,7 @@ class AuthController extends Controller
             $user = $this->create($registerData);
         } catch (ValidationException $e) {
             return Redirect::to('auth/register')
-                ->withTitle(sprintf('%s %s', trans('hifone.whoops'), trans('dashboard.users.add.failure')))
+                ->withTitle(sprintf('%s %s', trans('hifone.whoops'), trans('hifone.users.add.failure')))
                 ->withInput(Input::all())
                 ->withErrors($e->getMessageBag());
         }
@@ -227,15 +231,15 @@ class AuthController extends Controller
             try {
                 $extern_user = \Socialite::with($slug)->user();
             } catch (InvalidStateException $e) {
-                return Redirect::to('/auth/landing')
-                    ->withErrors(['授权失效']);
+                return Redirect::to('/auth/login')
+                    ->withErrors([trans('hifone.login.oauth.errors.invalidstate')]);
             }
 
             //检查是否已经连接过
             $identity = Identity::where('provider_id', '=', $provider->id)->where('extern_uid', '=', $extern_user->id)->first();
 
             if (is_null($identity)) {
-                Session::put('connect_data', ['provider_id' => $provider->id, 'extern_uid' => $extern_user->id, 'nickname' => $extern_user->nickname]);
+                Session::put('connect_data', ['provider_id' => $provider->id, 'provider_name' => $provider->name, 'extern_uid' => $extern_user->id, 'nickname' => $extern_user->nickname]);
 
                 return Redirect::to('/auth/landing');
             }
@@ -247,7 +251,7 @@ class AuthController extends Controller
             }
 
             return Redirect::to('/')
-                ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.login.success')));
+            ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.login.success_oauth', ['provider' => $provider->name])));
         }
     }
 

@@ -12,6 +12,7 @@
 namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
+use Cmgmyr\Messenger\Traits\Messagable;
 use Hifone\Presenters\UserPresenter;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -23,7 +24,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasPresenter
 {
-    use Authenticatable, CanResetPassword, EntrustUserTrait, ValidatingTrait;
+    use Authenticatable, CanResetPassword, EntrustUserTrait, ValidatingTrait, Messagable;
 
     // Enable hasRole( $name ), can( $permission ),
     //   and ability($roles, $permissions, $options)
@@ -75,8 +76,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public static function findByUsernameOrFail(
         $username,
         $columns = ['*']
-    )
-    {
+    ) {
         if (!is_null($user = static::whereUsername($username)->first($columns))) {
             return $user;
         }
@@ -89,16 +89,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany(Thread::class, 'favorites')->withTimestamps();
     }
 
+    /**
+     * Users can have many threads.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function threads()
     {
         return $this->hasMany(Thread::class);
     }
 
+    /**
+     * Users can have many replies.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function replies()
     {
         return $this->hasMany(Reply::class);
     }
 
+    /**
+     * Users can have many credits.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function credits()
     {
         return $this->hasMany(Credit::class);
@@ -106,7 +121,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        return $this->morphMany(Notification::class, 'object');
     }
 
     public function follows()

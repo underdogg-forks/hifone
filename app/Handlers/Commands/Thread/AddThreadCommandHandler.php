@@ -14,11 +14,12 @@ namespace Hifone\Handlers\Commands\Thread;
 use Auth;
 use Carbon\Carbon;
 use Hifone\Commands\Thread\AddThreadCommand;
-use Hifone\Dates\DateFactory;
 use Hifone\Events\Thread\ThreadWasAddedEvent;
 use Hifone\Models\Thread;
+use Hifone\Dates\DateFactory;
 use Hifone\Parsers\Markdown;
 use Hifone\Parsers\ParseAt;
+use Hifone\Services\Tag\AddTag;
 
 class AddThreadCommandHandler
 {
@@ -59,7 +60,7 @@ class AddThreadCommandHandler
             'title'         => $command->title,
             'excerpt'       => Thread::makeExcerpt($command->body),
             'node_id'       => $command->node_id,
-            'body'          => $this->markdown->convertMarkdownToHtml($this->parseAt->parse($command->body)),
+            'body'          => app('parser.markdown')->convertMarkdownToHtml(app('parser.at')->parse($command->body)),
             'body_original' => $command->body,
             'created_at'    => Carbon::now()->toDateTimeString(),
             'updated_at'    => Carbon::now()->toDateTimeString(),
@@ -73,6 +74,9 @@ class AddThreadCommandHandler
         }
 
         Auth::user()->increment('thread_count', 1);
+
+        // The thread was added successfully, so now let's deal with the tags.
+        app(AddTag::class)->attach($thread, $command->tags);
 
         event(new ThreadWasAddedEvent($thread));
 

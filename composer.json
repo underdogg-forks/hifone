@@ -10,16 +10,27 @@
   ],
   "license": "MIT",
   "type": "project",
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
-    "php": ">=5.6.4",
+
+    "barryvdh/laravel-ide-helper": "^2.3",
     "laravel/framework": "5.2.38",
     "alt-three/validator": "^1.5",
     "arrilot/laravel-widgets": "^3.3",
     "backup-manager/laravel": "^1.1",
     "doctrine/dbal": "^2.5",
-    "graham-campbell/exceptions": "^5.1",
+    "filp/whoops": "^2.1",
+    "hifone/dashboard": "~1.0",
     "gregwar/captcha": "~1.1",
+    "nwidart/laravel-modules": "^1.1",
     "guzzlehttp/guzzle": "~6.0",
+    "hifone/stringblade": "~1.0",
     "intervention/image": "^2.3",
     "jenssegers/date": "^3.2",
     "laravelcollective/bus": "~5.2",
@@ -35,7 +46,10 @@
     "socialiteproviders/weixin-web": "^2.0",
     "symfony/css-selector": "^3.0",
     "symfony/dom-crawler": "~3.0",
-    "zizaco/entrust": "dev-laravel-5"
+    "venturecraft/revisionable": "1.*",
+    "zizaco/entrust": "dev-laravel-5",
+    "cmgmyr/messenger": "2.11",
+    "watson/sitemap": "^2.0"
   },
   "require-dev": {
     "fzaninotto/faker": "^1.5",
@@ -49,10 +63,11 @@
       "database"
     ],
     "files": [
-      "app/Http/helpers.php"
+            "app/Helpers/Helpers.php"
     ],
     "psr-4": {
-      "Hifone\\": "app/"
+      "Hifone\\": "app/",
+      "Modules\\": "Modules/"
     }
   },
   "autoload-dev": {
@@ -76,23 +91,11 @@
     ],
     "post-update-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-      "php artisan optimize --force",
+
       "php artisan config:cache",
-      "php artisan route:cache"
+      "php artisan cache:clear",
+      "php artisan route:cache",
+      "php artisan view:clear"
     ]
-  },
-  "config": {
-    "platform": {
-      "php": "5.6.4"
-    },
-    "preferred-install": "dist"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
-    }
   }
 }

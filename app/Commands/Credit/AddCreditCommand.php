@@ -14,7 +14,8 @@ namespace Hifone\Commands\Credit;
 final class AddCreditCommand
 {
     public $user_id;
-
+    public $action;
+    public $user;
     public $rule_id;
 
     public $balance;
@@ -37,6 +38,8 @@ final class AddCreditCommand
      */
     public function __construct($user_id, $rule_id, $balance)
     {
+        $this->action = $action;
+        $this->user = $user;
         $this->user_id = $user_id;
         $this->rule_id = $rule_id;
         $this->balance = $balance;

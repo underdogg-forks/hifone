@@ -13,6 +13,9 @@ namespace Hifone\Http\Controllers;
 
 use Hifone\Models\Node;
 use Hifone\Models\Thread;
+use Hifone\Repositories\Criteria\Thread\BelongsToNode;
+use Hifone\Repositories\Criteria\Thread\Filter;
+use Hifone\Repositories\Criteria\Thread\Search;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
@@ -23,15 +26,22 @@ class NodeController extends Controller
     {
         $sections = Section::orderBy('order')->get();
 
-        return View::make('nodes.index')
+        return $this->view('nodes.index')
             ->withSections($sections);
     }
 
     public function show(Node $node)
     {
-        $threads = Thread::NodeThreads(Input::get('filter'), $node->id)->search(Input::query('q'))->paginate(Config::get('setting.per_page'));
+        $this->breadcrumb->push($node->name, $node->url);
 
-        return View::make('threads.index')
+        $repository = app('repository');
+        $repository->pushCriteria(new Search(Input::query('q')));
+        $repository->pushCriteria(new BelongsToNode($node->id));
+        $repository->pushCriteria(new Filter('node'));
+
+        $threads = $repository->model(Thread::class)->getThreadList(Config::get('setting.per_page'));
+
+        return $this->view('threads.index')
             ->withThreads($threads)
             ->withNode($node);
     }

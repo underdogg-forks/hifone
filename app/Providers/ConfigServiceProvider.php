@@ -12,8 +12,8 @@
 namespace Hifone\Providers;
 
 use Exception;
-use Hifone\Config\Repository;
 use Hifone\Models\Setting as SettingModel;
+use Hifone\Services\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -53,7 +53,7 @@ class ConfigServiceProvider extends ServiceProvider
         }
 
         if ($appTimezone = $this->app->config->get('setting.site_timezone')) {
-            $this->app->config->set('cachet.timezone', $appTimezone);
+            $this->app->config->set('app.timezone', $appTimezone);
         }
     }
 

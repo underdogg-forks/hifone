@@ -11,8 +11,11 @@
 
 namespace Hifone\Http\Controllers;
 
+use Auth;
+use Hifone\Events\User\UserWasLoggedinEvent;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
+use Hifone\Repositories\Criteria\Thread\Filter;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -24,6 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::check()) {
+            $activeDate = app('session')->get('active_date');
+
+            if (!$activeDate || $activeDate != date('Ymd')) {
+                event(new UserWasLoggedinEvent(Auth::user()));
+                app('session')->put('active_date', date('Ymd'));
+            }
+        }
+
         $class = Config::get('setting.home_controller') ?: 'ThreadController';
         $method = Config::get('setting.home_method') ?: 'index';
 
@@ -35,9 +47,12 @@ class HomeController extends Controller
      */
     public function excellent()
     {
-        $threads = Thread::filter('excellent')->with('user', 'node', 'lastReplyUser')->paginate(20);
+        $repository = app('repository');
+        $repository->pushCriteria(new Filter('excellent'));
 
-        return View::make('home.excellent')
+        $threads = $repository->model(Thread::class)->getThreadList(10);
+
+        return $this->view('home.excellent')
             ->withThreads($threads)
             ->withSections(Section::orderBy('order')->get());
     }

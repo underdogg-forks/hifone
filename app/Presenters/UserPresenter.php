@@ -20,6 +20,33 @@ class UserPresenter extends AbstractPresenter
         return route('user.home', $this->wrappedObject->username);
     }
 
+    public function coins()
+    {
+        $divider = 2;
+
+        $str = implode('', str_split(strrev($this->wrappedObject->score), $divider));
+
+        $bronze = strrev(substr($str, 0, $divider));
+        $silver = strrev(substr($str, 1 * $divider, $divider));
+        $gold = strrev(substr($str, 2 * $divider));
+
+        $coins = [
+            'gold'   => $gold,
+            'silver' => $silver,
+            'bronze' => $bronze,
+        ];
+
+        $coins_str = '';
+        foreach ($coins as $coin => $value) {
+            if (!$value) {
+                continue;
+            }
+            $coins_str .= '<img src="/images/'.$coin.'.png"> '.$value;
+        }
+
+        return $coins_str;
+    }
+
     public function hasBadge()
     {
         $relations = Role::relationArrayWithCache();

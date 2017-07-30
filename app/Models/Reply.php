@@ -12,13 +12,16 @@
 namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
+use Hifone\Models\Scopes\ForUser;
+use Hifone\Models\Scopes\Recent;
 use Hifone\Presenters\ReplyPresenter;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Reply extends Model implements HasPresenter
 {
-    use ValidatingTrait;
+    use ValidatingTrait, ForUser, Recent, RevisionableTrait;
 
     /**
      * The fillable properties.
@@ -46,6 +49,11 @@ class Reply extends Model implements HasPresenter
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'object');
     }
 
     public function user()

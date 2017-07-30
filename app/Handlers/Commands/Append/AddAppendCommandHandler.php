@@ -13,9 +13,9 @@ namespace Hifone\Handlers\Commands\Append;
 
 use Carbon\Carbon;
 use Hifone\Commands\Append\AddAppendCommand;
-use Hifone\Dates\DateFactory;
 use Hifone\Events\Append\AppendWasAddedEvent;
 use Hifone\Models\Append;
+use Hifone\Dates\DateFactory;
 
 class AddAppendCommandHandler
 {
@@ -47,7 +47,7 @@ class AddAppendCommandHandler
     {
         $data = [
             'thread_id'         => $command->thread_id,
-            'content'           => $command->content,
+            'content'           => app('parser.markdown')->convertMarkdownToHtml($command->content),
             'created_at'        => Carbon::now()->toDateTimeString(),
         ];
         // Create the append

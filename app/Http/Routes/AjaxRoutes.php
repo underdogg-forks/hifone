@@ -36,10 +36,10 @@ class AjaxRoutes
                 'uses' => 'ThreadController@sink',
             ]);
             //推荐
-            $router->post('thread/{thread}/recomend', [
-                'as' => 'thread.recomend',
+            $router->post('thread/{thread}/recommend', [
+                'as'         => 'thread.recommend',
                 'middleware' => ['permission:manage_threads'],
-                'uses' => 'ThreadController@recomend',
+                'uses'       => 'ThreadController@recommend',
             ]);
             //置顶
             $router->post('thread/{thread}/pin', [
@@ -87,7 +87,7 @@ class AjaxRoutes
                 'uses' => 'NotificationController@count',
             ]);
 
-            $router->post('upload_image', [
+            $router->any('upload_image', [
                 'as' => 'upload_image',
                 'uses' => 'UploadController@uploadImage',
             ]);

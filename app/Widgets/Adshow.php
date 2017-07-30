@@ -13,7 +13,7 @@ namespace Hifone\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 use Cache;
-use Hifone\Models\Adspace;
+use Hifone\Models\Ad\Adspace;
 use Illuminate\Support\Facades\View;
 use Request;
 use Route;
@@ -53,7 +53,7 @@ class Adshow extends AbstractWidget
     private function getAdvertisements($adspace)
     {
         return Cache::remember(self::CACHE_KEY . $adspace->id, self::CACHE_MINUTES, function () use ($adspace) {
-            return $adspace->advertisements()->get();
+            return $adspace->advertisements()->enabled()->get();
         });
     }
 }

@@ -107,7 +107,7 @@ class InstallController extends Controller
             }
         }
 
-        return View::make('install.index')
+        return $this->view('install.index')
             ->withCacheDrivers($this->cacheDrivers)
             ->withPageTitle(trans('install.title'))
             ->withEnvCheck($this->verify())
@@ -203,6 +203,11 @@ class InstallController extends Controller
             Auth::login($user);
             $setting = app('setting');
             $settings = array_pull($postData, 'settings');
+
+            // Other Default Settings
+            $settings['captcha_login_disabled'] = '0';
+            $settings['captcha_register_disabled'] = '0';
+
             foreach ($settings as $settingName => $settingValue) {
                 $setting->set($settingName, $settingValue);
             }

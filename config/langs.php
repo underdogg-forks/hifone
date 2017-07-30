@@ -13,5 +13,6 @@ return [
 
     // Enabled langs
     'en'    => 'English',
+    'nl'    => 'Nederlands',
 
 ];

@@ -2,7 +2,7 @@ body.forum {
   height: 100%;
   font-size: 14px;
   color: #333333;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "lato-regular", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   background-image: url('/images/bg.png');
   padding-top: 65px;
 
@@ -160,6 +160,14 @@ body.forum {
     .media-object {
       border-radius: 120px;
     }
+    .avatar-16 {
+      width: 16px;
+      height: 16px;
+    }
+    .avatar-32 {
+      width: 32px;
+      height: 32px;
+    }
     .avatar-48 {
       width: 48px;
       height: 48px;
@@ -207,6 +215,21 @@ body.forum {
     color: rgb(240, 148, 87);
   }
 
+  .tag-list {
+    display: inline-block;
+    a {
+      color: #333;
+      margin-left: 0px;
+      padding: 0px;
+    }
+    .tag {
+      background-color: #f5f5f5;
+      font-size: 10px;
+      padding: 5px;
+      white-space: nowrap;
+    }
+  }
+
   @media (min-width: 1026px) {
     .hideable { display: none; }
   }
@@ -219,6 +242,10 @@ body.forum {
 .badge-reply-count {
   margin: 15px 20px;
   background-color: #aab0c6;
+}
+
+.badge-tag-cloud{
+  color: #333333;
 }
 
 .panel {
@@ -370,7 +397,14 @@ embed {
   .operate a {
     color: #d0d0d0;
   }
+  .highlight {
+    background-color: #fffce9;
 }
+  li {
+    margin-top: 0px;
+  }
+}
+
 
 .user-card {
   border-radius: 5px;
@@ -682,6 +716,9 @@ div#preview-box {
 
     .dl-horizontal dd {
       margin-left: 0px;
+      .label {
+        margin-top:3px;
+      }
     }
   }
 }

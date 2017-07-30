@@ -36,16 +36,16 @@ class UserController extends Controller
     {
         $users = User::recent()->take(48)->get();
 
-        return View::make('users.index')
+        return $this->view('users.index')
             ->withUsers($users);
     }
 
     public function show(User $user)
     {
-        $threads = Thread::whose($user->id)->recent()->limit(10)->get();
-        $replies = Reply::whose($user->id)->recent()->limit(10)->get();
+        $threads = Thread::forUser($user->id)->recent()->limit(10)->get();
+        $replies = Reply::forUser($user->id)->recent()->limit(10)->get();
 
-        return View::make('users.show')
+        return $this->view('users.show')
             ->withUser($user)
             ->withThreads($threads)
             ->withReplies($replies);
@@ -59,10 +59,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $this->needAuthorOrAdminPermission($user->id);
-        $providers = Provider::orderBy('created_at', 'desc')->get();
+        $providers = Provider::recent()->get();
         $ids = $user->identities()->pluck('provider_id')->all();
 
-        return View::make('users.edit')
+        return $this->view('users.edit')
             ->withProviders($providers)
             ->withTab(Input::get('tab'))
             ->withBindOauthIds($ids)
@@ -72,7 +72,7 @@ class UserController extends Controller
     public function update(User $user)
     {
         $this->needAuthorOrAdminPermission($user->id);
-        $data = Input::only('nickname', 'location', 'company', 'website', 'signature', 'bio');
+        $data = Input::only('nickname', 'location', 'company', 'website', 'signature', 'bio', 'locale');
         try {
             if ($data['location']) {
                 $location = Location::where('name', $data['location'])->first();
@@ -99,18 +99,18 @@ class UserController extends Controller
 
     public function replies(User $user)
     {
-        $replies = Reply::whose($user->id)->recent()->paginate(15);
+        $replies = Reply::forUser($user->id)->recent()->paginate(15);
 
-        return View::make('users.replies')
+        return $this->view('users.replies')
             ->withUser($user)
             ->withReplies($replies);
     }
 
     public function threads(User $user)
     {
-        $threads = Thread::whose($user->id)->recent()->paginate(15);
+        $threads = Thread::forUser($user->id)->recent()->paginate(15);
 
-        return View::make('users.threads')
+        return $this->view('users.threads')
             ->withUser($user)
             ->withThreads($threads);
     }
@@ -119,7 +119,7 @@ class UserController extends Controller
     {
         $threads = $user->favoriteThreads()->paginate(15);
 
-        return View::make('users.favorites')
+        return $this->view('users.favorites')
             ->withUser($user)
             ->withThreads($threads);
     }
@@ -128,7 +128,7 @@ class UserController extends Controller
     {
         $credits = $user->credits()->paginate(15);
 
-        return View::make('users.credits')
+        return $this->view('users.credits')
             ->withUser($user)
             ->withCredits($credits);
     }
@@ -138,7 +138,7 @@ class UserController extends Controller
         $location = Location::where('name', $name)->firstOrFail();
         $users = $location->users()->paginate(15);
 
-        return View::make('users.city')
+        return $this->view('users.city')
             ->withLocation($location)
             ->withUsers($users);
     }
@@ -159,7 +159,7 @@ class UserController extends Controller
         $record ? $record->delete() : null;
 
         return Redirect::route('user.edit', $user->id)
-            ->withSuccess('解绑成功');
+            ->withSuccess(trans('hifone.login.oauth.unbound_success'));
     }
 
     public function avatarupdate()
@@ -187,7 +187,7 @@ class UserController extends Controller
         $user->save();
 
         return Redirect::back()
-            ->withSuccess('头像更新成功');
+            ->withSuccess(trans('hifone.users.avatar_upload_success'));
     }
 
     protected function resetPassword()
@@ -201,18 +201,18 @@ class UserController extends Controller
 
             if (!($password == $password_confirmation)) {
                 return Redirect::back()
-                    ->withInfo('当前输入新密码与错密码不一致, 请重新输入.');
+                    ->withInfo('Password is not same as password confirmation');
             } else {
                 $user->password = Hash::make(Input::only('password')['password']);
 
                 $user->save();
 
                 return Redirect::back()
-                    ->withSuccess('密码修改成功!');
+                    ->withSuccess('Password changed successfully!');
             }
         } else {
             return Redirect::back()
-                ->withError('输入当前密码输入错误, 请重新输入.');
+                ->withError('Password incorrect');
         }
     }
 }

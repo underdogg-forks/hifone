@@ -14,15 +14,21 @@ namespace Hifone\Models;
 use AltThree\Validator\ValidatingTrait;
 use Carbon\Carbon;
 use Config;
+use Hifone\Models\Scopes\ForUser;
+use Hifone\Models\Scopes\Recent;
+use Hifone\Models\Traits\Taggable;
 use Hifone\Presenters\ThreadPresenter;
+use Hifone\Services\Tag\TaggableInterface;
 use Illuminate\Database\Eloquent\Model;
 use Input;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use Venturecraft\Revisionable\RevisionableTrait;
 
-class Thread extends Model implements HasPresenter
+class Thread extends Model implements HasPresenter, TaggableInterface
 {
-    use ValidatingTrait;
-    // manually maintian
+    use ValidatingTrait, Taggable, ForUser, Recent, RevisionableTrait;
+
+    // manually maintain
     public $timestamps = false;
 
     //use SoftDeletingTrait;
@@ -67,6 +73,11 @@ class Thread extends Model implements HasPresenter
         return $this->morphMany(Follow::class, 'followable');
     }
 
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'object');
+    }
+
     public function favoritedBy()
     {
         return $this->belongsToMany(User::class, 'favorites');
@@ -102,6 +113,7 @@ class Thread extends Model implements HasPresenter
         $lastReply = $this->replies()->recent()->first();
 
         $this->last_reply_user_id = $lastReply ? $lastReply->user_id : 0;
+        $this->updated_at = $lastReply->created_at;
         $this->save();
     }
 
@@ -170,7 +182,7 @@ class Thread extends Model implements HasPresenter
 
     public function scopePinAndRecentReply($query)
     {
-        return $query->whereRaw("(`created_at` > '" . Carbon::today()->subMonth()->toDateString() . "' or (`order` > 0) )")
+        return $query->whereRaw("(`created_at` > '".Carbon::today()->subMonths(6)->toDateString()."' or (`order` > 0) )")
             ->orderBy('order', 'desc')
             ->orderBy('updated_at', 'desc');
     }

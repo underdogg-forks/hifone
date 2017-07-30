@@ -15,10 +15,11 @@ use AltThree\Validator\ValidatingTrait;
 use Hifone\Presenters\NodePresenter;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Node extends Model implements HasPresenter
 {
-    use ValidatingTrait;
+    use ValidatingTrait, RevisionableTrait;
     /**
      * List of attributes that have default values.
      *
@@ -57,13 +58,18 @@ class Node extends Model implements HasPresenter
         'status' => 'int',
     ];
 
+    /**
+     * Nodes can belong to a section.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function section()
     {
         return $this->belongsTo(Section::class);
     }
 
     /**
-     * Get the incidents relation.
+     * Lookup all of the threads posted on the node.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -72,6 +78,11 @@ class Node extends Model implements HasPresenter
         return $this->hasMany(Thread::class)->getThreadsWithFilter($filter);
     }
 
+    /**
+     * Returns url of this node.
+     *
+     * @return string
+     */
     public function getUrlAttribute()
     {
         return ($this->slug) ? route('go', $this->slug) : route('node.show', $this->id);

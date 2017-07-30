@@ -12,7 +12,8 @@
 namespace Hifone\Http\Controllers;
 
 use Auth;
-use Config;
+use Hifone\Models\Notification;
+use Hifone\Services\Dates\DateFactory;
 use Illuminate\Support\Facades\View;
 use Redirect;
 
@@ -20,12 +21,14 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Auth::user()->notifications()->recent()->with('thread', 'fromUser')->paginate(Config::get('setting.per_page'));
+        $notifications = Notification::forUser(Auth::user()->id)->recent()->paginate(20)->groupBy(function (Notification $notification) {
+            return app(DateFactory::class)->make($notification->created_at)->toDateString();
+        });
 
         Auth::user()->notification_count = 0;
         Auth::user()->save();
 
-        return View::make('notifications.index')
+        return $this->view('notifications.index')
             ->withNotifications($notifications);
     }
 
@@ -36,7 +39,7 @@ class NotificationController extends Controller
 
     public function clean()
     {
-        Auth::user()->notifications()->delete();
+        Notification::forUser(Auth::user()->id)->delete();
 
         return Redirect::route('notification.index')
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));

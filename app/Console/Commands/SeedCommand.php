@@ -106,6 +106,17 @@ class SeedCommand extends Command
      */
     protected function seedSettings()
     {
+        $footerHtml = <<<'FOOTER'
+<div class="copyright">
+    <blockquote class="pull-left">
+        <p>Paragraph</p>
+    </blockquote>
+</div>
+<div class="pull-right hidden-sm hidden-xs">
+    <p>Paragraph</p>
+</div>
+FOOTER;
+
         $defaultSettings = [
             [
                 'name'  => 'site_name',
@@ -122,6 +133,15 @@ class SeedCommand extends Command
             ], [
                 'name'  => 'site_about',
                 'value' => 'This is the demo instance of [Hifone](https://hifone.com?ref=demo). The open source forum software.',
+            ], [
+                'name'  => 'footer_html',
+                'value' => $footerHtml,
+            ], [
+                'name'  => 'captcha_register_disabled',
+                'value' => '0',
+            ], [
+                'name'  => 'captcha_login_disabled',
+                'value' => '0',
             ],
         ];
         Setting::truncate();
@@ -135,13 +155,32 @@ class SeedCommand extends Command
         // Create Roles
         $founder = new Role();
         $founder->name = 'Founder';
+        $founder->display_name = 'Founder';
         $founder->save();
 
         $admin = new Role();
         $admin->name = 'Admin';
+        $admin->display_name = 'Admin';
         $admin->save();
 
+        $manager = new Role();
+        $manager->name = 'Manager';
+        $manager->display_name = 'Manager';
+        $manager->save();
+
+        $teamleader = new Role();
+        $teamleader->name = 'Teamleader';
+        $teamleader->display_name = 'Teamleader';
+        $teamleader->save();
+
+
+        $employee = new Role();
+        $employee->name = 'Employee';
+        $employee->display_name = 'Employee';
+
+
         // Create User
+
         $salt = str_random(6);
         $user = User::create([
                 'username' => 'hifone',
@@ -153,7 +192,9 @@ class SeedCommand extends Command
         // Attach Roles to user
         $user->roles()->attach($founder->id);
 
+
         // Create Permissions
+
         $manageThreads = new Permission();
         $manageThreads->name = 'manage_threads';
         $manageThreads->display_name = 'Manage Threads';
@@ -163,6 +204,7 @@ class SeedCommand extends Command
         $manageUsers->name = 'manage_users';
         $manageUsers->display_name = 'Manage Users';
         $manageUsers->save();
+
 
         // Assign Permission to Role
         $founder->perms()->sync([$manageThreads->id, $manageUsers->id]);

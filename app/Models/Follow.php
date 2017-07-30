@@ -12,11 +12,12 @@
 namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
+use Hifone\Models\Scopes\ForUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Follow extends Model
 {
-    use ValidatingTrait;
+    use ValidatingTrait, ForUser;
 
     /**
      * The fillable properties.
@@ -36,11 +37,19 @@ class Follow extends Model
         'followable_type' => 'required|string',
     ];
 
+    /**
+     * Get all of the owning followable models.
+     */
     public function followable()
     {
         return $this->morphTo();
     }
 
+    /**
+     * Follows can belong to a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

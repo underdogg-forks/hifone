@@ -13,10 +13,11 @@ namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Section extends Model
 {
-    use ValidatingTrait;
+    use ValidatingTrait, RevisionableTrait;
 
     /**
      * The fillable properties.
@@ -40,6 +41,11 @@ class Section extends Model
         'order' => 'int',
     ];
 
+    /**
+     * Sections can have many nodes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function nodes()
     {
         return $this->hasMany(Node::class)->orderBy('order');

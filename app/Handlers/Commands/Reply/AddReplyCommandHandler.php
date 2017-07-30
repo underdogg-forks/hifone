@@ -11,12 +11,11 @@
 
 namespace Hifone\Handlers\Commands\Reply;
 
-use Auth;
 use Carbon\Carbon;
 use Hifone\Commands\Reply\AddReplyCommand;
-use Hifone\Dates\DateFactory;
 use Hifone\Events\Reply\ReplyWasAddedEvent;
 use Hifone\Models\Reply;
+use Hifone\Dates\DateFactory;
 use Hifone\Parsers\Markdown;
 use Hifone\Parsers\ParseAt;
 
@@ -57,7 +56,7 @@ class AddReplyCommandHandler
         $data = [
             'user_id'       => $command->user_id,
             'thread_id'     => $command->thread_id,
-            'body'          => $this->markdown->convertMarkdownToHtml($this->parseAt->parse($command->body)),
+            'body'          => app('parser.markdown')->convertMarkdownToHtml(app('parser.at')->parse($command->body)),
             'body_original' => $command->body,
             'created_at'    => Carbon::now()->toDateTimeString(),
             'updated_at'    => Carbon::now()->toDateTimeString(),
@@ -73,7 +72,7 @@ class AddReplyCommandHandler
             $reply->thread->save();
         }
 
-        Auth::user()->increment('reply_count', 1);
+        $reply->user->increment('reply_count', 1);
 
         event(new ReplyWasAddedEvent($reply));
 

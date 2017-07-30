@@ -13,8 +13,8 @@ namespace Hifone\Handlers\Commands\Follow;
 
 use Auth;
 use Hifone\Commands\Follow\AddFollowCommand;
-use Hifone\Dates\DateFactory;
 use Hifone\Events\Follow\FollowWasAddedEvent;
+use Hifone\Dates\DateFactory;
 
 class AddFollowCommandHandler
 {
@@ -49,8 +49,8 @@ class AddFollowCommandHandler
 
     protected function followAction($target)
     {
-        if ($target->follows()->ByWhom(Auth::id())->count()) {
-            $target->follows()->ByWhom(Auth::id())->delete();
+        if ($target->follows()->forUser(Auth::id())->count()) {
+            $target->follows()->forUser(Auth::id())->delete();
         } else {
             $target->follows()->create(['user_id' => Auth::id()]);
             event(new FollowWasAddedEvent($target));

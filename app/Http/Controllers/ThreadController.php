@@ -17,9 +17,13 @@ use Hifone\Commands\Append\AddAppendCommand;
 use Hifone\Commands\Thread\AddThreadCommand;
 use Hifone\Commands\Thread\RemoveThreadCommand;
 use Hifone\Commands\Thread\UpdateThreadCommand;
+use Hifone\Events\Thread\ThreadWasViewedEvent;
 use Hifone\Models\Node;
 use Hifone\Models\Section;
 use Hifone\Models\Thread;
+use Hifone\Repositories\Criteria\Thread\BelongsToNode;
+use Hifone\Repositories\Criteria\Thread\Filter;
+use Hifone\Repositories\Criteria\Thread\Search;
 use Hifone\Parsers\Markdown;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
@@ -28,40 +32,71 @@ use Redirect;
 
 class ThreadController extends Controller
 {
+    /**
+     * Creates a new thread controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    /**
+     * Shows the threads view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
-        $threads = Thread::filter(Input::query('filter'))->search(Input::query('q'))->paginate(Config::get('setting.per_page'));
+        $repository = app('repository');
+        $repository->pushCriteria(new Filter(Input::query('filter')));
+        $repository->pushCriteria(new Search(Input::query('q')));
 
-        return View::make('threads.index')
+        $threads = $repository->model(Thread::class)->getThreadList(Config::get('setting.threads_per_page', 15));
+
+        return $this->view('threads.index')
             ->withThreads($threads)
             ->withSections(Section::orderBy('order')->get());
     }
 
+    /**
+     * Shows the add thread view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $node = Node::find(Input::query('node_id'));
         $sections = Section::orderBy('order')->get();
 
-        return View::make('threads.create_edit')
+        $this->breadcrumb->push(trans('hifone.threads.add'), route('thread.create'));
+
+        return $this->view('threads.create_edit')
             ->withSections($sections)
             ->withNode($node);
     }
 
+    /**
+     * Creates a new node.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store()
     {
         $threadData = Input::get('thread');
         $node_id = isset($threadData['node_id']) ? $threadData['node_id'] : null;
+        $tags = isset($threadData['tags']) ? $threadData['tags'] : '';
+
         try {
             $thread = dispatch(new AddThreadCommand(
                 $threadData['title'],
                 $threadData['body'],
                 Auth::user()->id,
-                $node_id
+                $node_id,
+                $tags
             ));
         } catch (ValidationException $e) {
             return Redirect::route('thread.create')
@@ -75,14 +110,22 @@ class ThreadController extends Controller
 
     public function show(Thread $thread)
     {
+        $this->breadcrumb->push([
+            $thread->node->name => $thread->node->url,
+            $thread->title      => $thread->url,
+        ]);
+
         $replies = $thread->replies()
             ->orderBy('created_at', 'asc')
             ->with('user')
             ->paginate(Config::get('setting.per_page'));
 
         $node = $thread->node;
+        $repository = app('repository');
+        $repository->pushCriteria(new BelongsToNode($thread->node_id));
+
         $nodeThreads = $thread->getSameNodeThreads();
-        $thread->increment('view_count', 1);
+        event(new ThreadWasViewedEvent($thread));
 
         return View::make('threads.show')
             ->withThread($thread)
@@ -91,20 +134,64 @@ class ThreadController extends Controller
             ->withNode($node);
     }
 
+    /**
+     * Shows a thread in more detail.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showDetailed(Thread $thread)
+    {
+        $this->breadcrumb->push([
+            $thread->node->name => $thread->node->url,
+            $thread->title      => $thread->url,
+        ]);
+
+        $replies = $thread->replies()
+            ->orderBy('created_at', 'asc')
+            ->paginate(Config::get('setting.replies_per_page', 30));
+
+        $repository = app('repository');
+        $repository->pushCriteria(new BelongsToNode($thread->node_id));
+        $nodeThreads = $repository->model(Thread::class)->getThreadList(8);
+
+        event(new ThreadWasViewedEvent($thread));
+
+        return $this->view('threads.show')
+            ->withThread($thread)
+            ->withReplies($replies)
+            ->withNodeThreads($nodeThreads)
+            ->withNode($thread->node);
+    }
+
+
+
+    /**
+     * Shows the edit thread view.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);
         $sections = Section::orderBy('order')->get();
-        $node = $thread->node;
 
         $thread->body = $thread->body_original;
 
-        return View::make('threads.create_edit')
+        return $this->view('threads.create_edit')
             ->withThread($thread)
             ->withSections($sections)
-            ->withNode($node);
+            ->withNode($thread->node);
     }
 
+    /**
+     * Creates a new append.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function append(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);
@@ -126,6 +213,13 @@ class ThreadController extends Controller
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
 
+    /**
+     * Edit a thread.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Thread $thread)
     {
         $threadData = Input::get('thread');
@@ -148,7 +242,14 @@ class ThreadController extends Controller
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
 
-    public function recomend(Thread $thread)
+    /**
+     * Recommend a thread.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\View\View
+     */
+    public function recommend(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);
 
@@ -162,6 +263,13 @@ class ThreadController extends Controller
             ->withSuccess(sprintf('%s %s', trans('hifone.awesome'), trans('hifone.success')));
     }
 
+    /**
+     * Pin a thread.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\View\View
+     */
     public function pin(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);
@@ -170,6 +278,13 @@ class ThreadController extends Controller
         return Redirect::route('thread.show', $thread->id);
     }
 
+    /**
+     * Sink a thread.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\View\View
+     */
     public function sink(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);
@@ -178,6 +293,13 @@ class ThreadController extends Controller
         return Redirect::route('thread.show', $thread->id);
     }
 
+    /**
+     * Deletes a given thread.
+     *
+     * @param \Hifone\Models\Thread $thread
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Thread $thread)
     {
         $this->needAuthorOrAdminPermission($thread->user_id);

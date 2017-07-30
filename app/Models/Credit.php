@@ -12,13 +12,15 @@
 namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
+use Hifone\Models\Credit\Rule as CreditRule;
+use Hifone\Models\Scopes\Recent;
 use Hifone\Presenters\CreditPresenter;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\HasPresenter;
 
 class Credit extends Model implements HasPresenter
 {
-    use ValidatingTrait;
+    use ValidatingTrait, Recent;
 
     /**
      * The fillable properties.
@@ -51,14 +53,29 @@ class Credit extends Model implements HasPresenter
         });
     }
 
+    /**
+     * Credits can belong to a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * A credit belongs to a credit rule.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function rule()
     {
         return $this->belongsTo(CreditRule::class, 'rule_id');
     }
 
-    public function scopeRecent($query)
+    public function notifications()
     {
-        return $query->orderBy('created_at', 'desc');
+        return $this->morphMany(Notification::class, 'object');
     }
 
     /**

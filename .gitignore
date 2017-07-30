@@ -2,3 +2,13 @@
 node_modules
 phpunit.xml
 vendor
+.idea/
+config/administrator*
+public/packages/hifone/dashboard
+app/administrator/
+composer.phar
+public/packages/
+
+
+
+

@@ -13,10 +13,11 @@ namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Location extends Model
 {
-    use ValidatingTrait;
+    use ValidatingTrait, RevisionableTrait;
 
     /**
      * The fillable properties.
@@ -40,6 +41,11 @@ class Location extends Model
         'order' => 'int',
     ];
 
+    /**
+     * A location has many users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany(User::class);

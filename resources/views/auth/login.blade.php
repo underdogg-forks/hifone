@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         @if($connect_data)
                             <div class="alert alert-info">
-                                登录成功后，即可自动与你的账号 {{  $connect_data['nickname'] }} 进行关联。
+                                {{ trans('hifone.login.oauth.login.note', ['provider' => $connect_data['provider_name'], 'name' => $connect_data['nickname']]) }}
                             </div>
                         @endif
                         <form role="form" method="POST" action="/auth/login">
@@ -26,7 +26,9 @@
                                 <input type="password" class="form-control" name="password"
                                        placeholder="{{ trans('hifone.login.password') }}">
                             </div>
-                            @include('partials.captcha')
+                            @if(!$captcha_login_disabled)
+                                @include('partials.captcha')
+                            @endif
                             <div class="form-group checkbox">
                                 <label for="remember_me">
                                     <input type="checkbox" name="remember">{{ trans('hifone.login.remember') }}
@@ -46,7 +48,7 @@
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">用其他平台的帐号登录</div>
+                    <div class="panel-heading">{{ trans('hifone.login.login_with_oauth') }}</div>
                     <ul class="list-group">
                         <li class="list-group-item">
                             @foreach($providers as $provider)

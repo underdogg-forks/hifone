@@ -60,7 +60,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Shanghai',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Shanghai'),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,18 +165,28 @@ return [
         SocialiteProviders\Manager\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
-        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+
         Jenssegers\Date\DateServiceProvider::class,
         Roumen\Feed\FeedServiceProvider::class,
+        Frozennode\Administrator\AdministratorServiceProvider::class,
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
+        Watson\Sitemap\SitemapServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
+        Hifone\StringBlade\StringBladeCompilerServiceProvider::class,
+        Frozennode\Administrator\AdministratorServiceProvider::class,
         Hifone\Providers\AppServiceProvider::class,
         Hifone\Providers\AuthServiceProvider::class,
         Hifone\Providers\ComposerServiceProvider::class,
         Hifone\Providers\ConfigServiceProvider::class,
+        Hifone\Providers\ConsoleServiceProvider::class,
         Hifone\Providers\EventServiceProvider::class,
+        Hifone\Providers\NotifierServiceProvider::class,
+        Hifone\Providers\ParserServiceProvider::class,
+        Hifone\Providers\RepositoryServiceProvider::class,
         Hifone\Providers\RouteServiceProvider::class,
         Hifone\Providers\ConsoleServiceProvider::class,
     ],
@@ -235,6 +245,10 @@ return [
         'Purifier'     => Mews\Purifier\Facades\Purifier::class,
         'Widget'       => Arrilot\Widgets\Facade::class,
         'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
+
+        'Debugbar'     => Barryvdh\Debugbar\Facade::class,
+        'Sitemap'      => Watson\Sitemap\Facades\Sitemap::class,
+        'StringBlade'  => Hifone\StringBlade\Facades\StringBlade::class,
     ],
 
 ];

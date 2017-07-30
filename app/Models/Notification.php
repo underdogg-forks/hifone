@@ -12,13 +12,15 @@
 namespace Hifone\Models;
 
 use AltThree\Validator\ValidatingTrait;
+use Hifone\Models\Scopes\ForUser;
+use Hifone\Models\Scopes\Recent;
 use Hifone\Presenters\NotificationPresenter;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\HasPresenter;
 
 class Notification extends Model implements HasPresenter
 {
-    use ValidatingTrait;
+    use ValidatingTrait, ForUser, Recent;
 
     /**
      * The fillable properties.
@@ -34,6 +36,24 @@ class Notification extends Model implements HasPresenter
         'type',
     ];
 
+
+    /**
+     * The validation rules.
+     *
+     * @var string[]
+     */
+    public $rules = [
+        'author_id' => 'required|int',
+        'user_id'   => 'required|int',
+        'object_id' => 'required|int',
+    ];
+
+
+    /**
+     * Notications can belong to a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -44,10 +64,29 @@ class Notification extends Model implements HasPresenter
         return $this->belongsTo(Thread::class, 'thread_id');
     }
 
+
+    public function object()
+    {
+        return $this->morphTo();
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+
     public function fromUser()
     {
         return $this->belongsTo(User::class, 'from_user_id');
     }
+
+
+    public function scopeForAuthor($query, $author_id)
+    {
+        return $query->where('author_id', $author_id);
+    }
+
 
     public function scopeRecent($query)
     {
@@ -68,6 +107,12 @@ class Notification extends Model implements HasPresenter
     {
         return $query->where('type', '=', $type);
     }
+
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
 
     public function scopeAtThread($query, $thread_id)
     {
