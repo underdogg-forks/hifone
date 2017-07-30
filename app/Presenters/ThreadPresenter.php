@@ -13,8 +13,9 @@ namespace Hifone\Presenters;
 
 use Carbon\Carbon;
 use Hifone\Presenters\Traits\TimestampsTrait;
-use Hifone\Services\Dates\DateFactory;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
+use Hifone\Services\Dates\DateFactory;
+
 
 class ThreadPresenter extends AbstractPresenter
 {

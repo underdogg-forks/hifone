@@ -47,7 +47,6 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Image
-
         'Hifone\Events\Image\ImageWasUploadedEvent' => [
             'Hifone\Handlers\Listeners\Photo\AddPhotoRecordHandler',
             'Hifone\Handlers\Listeners\Stats\UpdateStatsHandler',
