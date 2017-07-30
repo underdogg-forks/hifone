@@ -72,7 +72,7 @@ class ForumRoutes
                 'uses'       => 'CreditController@index',
             ]);
 
-            //PMS
+            //Private Messages
              $router->get('/pm', [
                  'as'         => 'pm.index',
                  'middleware' => 'auth',
