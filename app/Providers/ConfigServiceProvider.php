@@ -49,7 +49,6 @@ class ConfigServiceProvider extends ServiceProvider
 
         if ($appLocale = $this->app->config->get('setting.site_locale')) {
             $this->app->config->set('app.locale', $appLocale);
-            $this->app->translator->setLocale($appLocale);
         }
 
         if ($appTimezone = $this->app->config->get('setting.site_timezone')) {

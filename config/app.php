@@ -11,6 +11,20 @@
 
 return [
 
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => env('APP_NAME', 'Laravel'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -47,7 +61,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +74,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'Asia/Shanghai'),
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -117,6 +131,7 @@ return [
     */
 
     'log' => env('APP_LOG', 'daily'),
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -146,6 +161,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -155,11 +171,22 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+
+        /*
+         * Package Service Providers...
+         */
         Arrilot\Widgets\ServiceProvider::class,
         BackupManager\Laravel\Laravel5ServiceProvider::class,
-        Collective\Bus\BusServiceProvider::class,
+        //Collective\Bus\BusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+
+        //Cviebrock\EloquentTaggable\ServiceProvider::class,
+        //Cviebrock\EloquentSluggable\ServiceProvider::class,
+        //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+
         Zizaco\Entrust\EntrustServiceProvider::class,
         //Laravel\Socialite\SocialiteServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
@@ -180,6 +207,10 @@ return [
         Frozennode\Administrator\AdministratorServiceProvider::class,
         Hifone\Providers\AppServiceProvider::class,
         Hifone\Providers\AuthServiceProvider::class,
+
+        // App\Providers\BroadcastServiceProvider::class,
+
+
         Hifone\Providers\ComposerServiceProvider::class,
         Hifone\Providers\ConfigServiceProvider::class,
         Hifone\Providers\ConsoleServiceProvider::class,
@@ -208,6 +239,7 @@ return [
         'Artisan'      => Illuminate\Support\Facades\Artisan::class,
         'Auth'         => Illuminate\Support\Facades\Auth::class,
         'Blade'        => Illuminate\Support\Facades\Blade::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus'          => Illuminate\Support\Facades\Bus::class,
         'Cache'        => Illuminate\Support\Facades\Cache::class,
         'Config'       => Illuminate\Support\Facades\Config::class,
@@ -218,11 +250,12 @@ return [
         'Event'        => Illuminate\Support\Facades\Event::class,
         'File'         => Illuminate\Support\Facades\File::class,
         'Hash'         => Illuminate\Support\Facades\Hash::class,
-        'Input'        => Illuminate\Support\Facades\Input::class,
-        'Inspiring'    => Illuminate\Foundation\Inspiring::class,
+        //'Input'        => Illuminate\Support\Facades\Input::class,
+        //'Inspiring'    => Illuminate\Foundation\Inspiring::class,
         'Lang'         => Illuminate\Support\Facades\Lang::class,
         'Log'          => Illuminate\Support\Facades\Log::class,
         'Mail'         => Illuminate\Support\Facades\Mail::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password'     => Illuminate\Support\Facades\Password::class,
         'Queue'        => Illuminate\Support\Facades\Queue::class,
         'Redirect'     => Illuminate\Support\Facades\Redirect::class,
@@ -233,12 +266,20 @@ return [
         'Schema'       => Illuminate\Support\Facades\Schema::class,
         'Session'      => Illuminate\Support\Facades\Session::class,
         'Storage'      => Illuminate\Support\Facades\Storage::class,
-        'Str'          => Illuminate\Support\Str::class,
+        //'Str'          => Illuminate\Support\Str::class,
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
+
+        'Module' => Nwidart\Modules\Facades\Module::class,
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
+
+        //'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        //'Theme' => Igaster\LaravelTheme\Facades\Theme::class,
+
+
+
         'Image'        => Intervention\Image\Facades\Image::class,
         'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
         'Socialite'    => Laravel\Socialite\Facades\Socialite::class,

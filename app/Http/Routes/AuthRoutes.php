@@ -39,7 +39,7 @@ class AuthRoutes
                 'uses' => 'AuthController@postLogin',
             ]);
 
-            $router->get('logout', [
+            $router->post('logout', [
                 'as' => 'logout',
                 'uses' => 'AuthController@getLogout',
                 'middleware' => 'auth',

@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'localize'      => \Hifone\Http\Middleware\Localize::class,
         'ready' => \Hifone\Http\Middleware\ReadyForUse::class,
         'not_installed' => \Hifone\Http\Middleware\RedirectIfInstallCompleted::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,

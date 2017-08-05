@@ -15,6 +15,7 @@ use AltThree\Validator\ValidatingTrait;
 use Cmgmyr\Messenger\Traits\Messagable;
 use Hifone\Presenters\UserPresenter;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
@@ -24,7 +25,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasPresenter
 {
-    use Authenticatable, CanResetPassword, EntrustUserTrait, ValidatingTrait, Messagable;
+    use Authenticatable, CanResetPassword, EntrustUserTrait, ValidatingTrait, Messagable, Notifiable;
 
     // Enable hasRole( $name ), can( $permission ),
     //   and ability($roles, $permissions, $options)

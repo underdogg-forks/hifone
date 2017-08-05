@@ -72,7 +72,6 @@ class Localize
             }
         }
 
-        app('translator')->setLocale($userLanguage);
         Date::setLocale($userLanguage);
 
         return $next($request);
